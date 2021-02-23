@@ -5,9 +5,6 @@ using WinMpcTrayIcon.Mpc;
 
 namespace WinMpcTrayIcon
 {
-    /// <summary>
-    /// Simple application. Check the XAML for comments.
-    /// </summary>
     public partial class App : Application
     {
         private TaskbarIcon notifyIcon;
@@ -26,7 +23,7 @@ namespace WinMpcTrayIcon
 
         protected override void OnExit(ExitEventArgs e)
         {
-            notifyIcon.Dispose(); //the icon would clean up automatically, but this is cleaner
+            notifyIcon.Dispose();
             base.OnExit(e);
         }
 
@@ -44,8 +41,11 @@ namespace WinMpcTrayIcon
         {
             if (action == null)
                 action = (int)_mpc.GetStatus();
-            var command = ((Command)action).ToString().ToLower();
-            notifyIcon.Icon = new Icon($"Icons/{command}.ico");
+
+            if (action == 2)
+                notifyIcon.Icon = new Icon($"Icons/play.ico");
+            else
+                notifyIcon.Icon = new Icon($"Icons/pause.ico");
         }
     }
 }
