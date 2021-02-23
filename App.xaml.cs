@@ -13,7 +13,7 @@ namespace WinMpcTrayIcon
         protected override void OnStartup(StartupEventArgs e)
         {
             base.OnStartup(e);
-            _mpc = new MpcClient("C:/Scripts/mpc/mpc.exe");
+            _mpc = new MpcClient();
             CreateNotifyIcon();
         }
 

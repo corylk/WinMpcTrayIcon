@@ -10,7 +10,7 @@ namespace WinMpcTrayIcon
 
         public NotifyIconViewModel()
         {
-            _mpc = new MpcClient("C:/Scripts/mpc/mpc.exe");
+            _mpc = new MpcClient();
         }
 
         public ICommand SendCommand => new DelegateCommand
