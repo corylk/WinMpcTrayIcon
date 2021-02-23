@@ -2,8 +2,8 @@
 {
     public enum Status
     {
-        Stopped = 0,
-        Paused = 1,
-        Playing = 2
+        stopped = 0,
+        paused = 1,
+        playing = 2
     }
 }

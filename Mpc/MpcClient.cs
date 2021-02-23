@@ -1,4 +1,5 @@
-﻿using System.Diagnostics;
+﻿using System;
+using System.Diagnostics;
 
 namespace WinMpcTrayIcon.Mpc
 {
@@ -27,15 +28,13 @@ namespace WinMpcTrayIcon.Mpc
 
         public Status GetStatus()
         {
-            var p = SendCommand(Command.Status);
-            p.Start();
-            string q = "";
+            var q = GetInfo();
+            var statusStr = q?.Split("[")[1]?.Split("]")[0];
 
-            while ( ! p.HasExited ) {
-                q += p.StandardOutput.ReadToEnd();
-            }
+            if (Enum.TryParse(statusStr, out Status status))
+                return status;
 
-            return (Status)q.Split("[")[1].Split("]")[0];
+            return Status.stopped;
         }
 
         public string GetInfo()

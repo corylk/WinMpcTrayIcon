@@ -30,12 +30,6 @@ namespace WinMpcTrayIcon
                 {
                     CommandAction = () =>
                     {
-                        var action = new Dictionary<string, Command>()
-                        {
-                            { "playing", Command.Pause },
-                            { "paused", Command.Play }
-                        };
-
                         var action = 3 - (int)_mpc.GetStatus();
                         _mpc.SendCommand((Command)action).Start();
                     }
