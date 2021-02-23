@@ -15,7 +15,7 @@ namespace WinMpcTrayIcon
 
         public ICommand SendCommand => new DelegateCommand
         {
-            CommandAction = (string cmd) => _mpc.SendCommand(cmd).Start()
+            CommandAction = (string cmd) => _mpc.Cmd(cmd)
         };
 
         public ICommand PlayPauseCommand => new DelegateCommand
@@ -23,7 +23,8 @@ namespace WinMpcTrayIcon
             CommandAction = (string cmd) =>
             {
                 var cmdInt = 3 - (int)_mpc.GetStatus();
-                _mpc.SendCommand((Command)cmdInt).Start();
+                cmd = ((Command)cmdInt).ToString();
+                _mpc.Cmd(cmd);
             }
         };
 

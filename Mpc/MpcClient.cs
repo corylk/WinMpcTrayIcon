@@ -12,24 +12,22 @@ namespace WinMpcTrayIcon.Mpc
             _mpcPath = mpcPath;
         }
 
-        public Process SendCommand(string cmd)
+        public void Cmd(string cmd)
         {
-            var p = new Process
-            {
-                StartInfo = new ProcessStartInfo(_mpcPath, cmd)
-                {
-                    RedirectStandardOutput = true,
-                    UseShellExecute = false,
-                    CreateNoWindow = true
-                }
-            };
-
-            return p;
+            SendCommand(cmd).Start();
         }
 
-        public Process SendCommand(Command cmd)
+        public string GetInfo()
         {
-            return SendCommand(cmd.AsArg());
+            var p = SendCommand(Command.status.ToString());
+            p.Start();
+            string q = "";
+
+            while ( ! p.HasExited ) {
+                q += p.StandardOutput.ReadToEnd();
+            }
+
+            return q.TrimEnd('\r', '\n');;
         }
 
         public Status GetStatus()
@@ -43,31 +41,19 @@ namespace WinMpcTrayIcon.Mpc
             return Status.stopped;
         }
 
-        public string GetInfo()
+        private Process SendCommand(string cmd)
         {
-            var p = SendCommand(Command.Status);
-            p.Start();
-            string q = "";
-
-            while ( ! p.HasExited ) {
-                q += p.StandardOutput.ReadToEnd();
-            }
-
-            return q.TrimEnd('\r', '\n');;
-        }
-
-        public MpcInfo GetToggles()
-        {
-            var q = GetInfo();
-            var info = new MpcInfo
+            var p = new Process
             {
-                Repeat = q?.Split("repeat: ")[1]?.Split(" ")[0] == "on",
-                Random = q?.Split("random: ")[1]?.Split(" ")[0] == "on",
-                Single = q?.Split("single: ")[1]?.Split(" ")[0] == "on",
-                Consume = q?.Split("consume: ")[1] == "on"
+                StartInfo = new ProcessStartInfo(_mpcPath, cmd)
+                {
+                    RedirectStandardOutput = true,
+                    UseShellExecute = false,
+                    CreateNoWindow = true
+                }
             };
 
-            return info;
+            return p;
         }
 
         private static string ParseStatus(string q)

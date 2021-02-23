@@ -2,14 +2,14 @@
 {
     public enum Command
     {
-        Stop = 0,
-        Pause = 1,
-        Play = 2,
-        Status = 3,
-        Clear = 4,
-        Repeat = 5,
-        Random = 6,
-        Single = 7,
-        Consume = 8
+        stop = 0,
+        pause = 1,
+        play = 2,
+        status = 3,
+        clear = 4,
+        repeat = 5,
+        random = 6,
+        single = 7,
+        consume = 8
     }
 }
