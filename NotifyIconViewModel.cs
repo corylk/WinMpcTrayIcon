@@ -54,6 +54,40 @@ namespace WinMpcTrayIcon
         }
 
         /// <summary>
+        /// mpc play
+        /// </summary>
+        public ICommand PlayCommand
+        {
+            get
+            {
+                return new DelegateCommand
+                {
+                    CommandAction = () =>
+                    {
+                        _mpc.SendCommand(Command.Play).Start();
+                    }
+                };
+            }
+        }
+
+        /// <summary>
+        /// mpc pause
+        /// </summary>
+        public ICommand PauseCommand
+        {
+            get
+            {
+                return new DelegateCommand
+                {
+                    CommandAction = () =>
+                    {
+                        _mpc.SendCommand(Command.Pause).Start();
+                    }
+                };
+            }
+        }
+
+        /// <summary>
         /// mpc stop
         /// </summary>
         public ICommand StopCommand

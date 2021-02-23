@@ -4,6 +4,10 @@
                     xmlns:local="clr-namespace:WinMpcTrayIcon">
 
     <ContextMenu x:Shared="false" x:Key="SysTrayMenu">
+        <MenuItem Header="Play" Command="{Binding PlayCommand}" />
+        <MenuItem Header="Pause" Command="{Binding PauseCommand}" />
+        <MenuItem Header="Stop" Command="{Binding StopCommand}" />
+        <MenuItem Header="Clear" Command="{Binding ClearCommand}" />
         <MenuItem Header="Exit" Command="{Binding ExitApplicationCommand}" />
     </ContextMenu>
 

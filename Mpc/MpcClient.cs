@@ -29,13 +29,10 @@ namespace WinMpcTrayIcon.Mpc
         public Status GetStatus()
         {
             var q = GetInfo();
+            var statusStr = ParseStatus(q);
 
-            if (q.Contains("[") && q.Contains("]"))
-            {
-                string statusStr = q?.Split("[")[1]?.Split("]")[0];
-                if (Enum.TryParse(statusStr, out Status status))
-                    return status;
-            }
+            if (Enum.TryParse(statusStr, out Status status))
+                return status;
 
             return Status.stopped;
         }
@@ -51,6 +48,16 @@ namespace WinMpcTrayIcon.Mpc
             }
 
             return q.TrimEnd('\r', '\n');;
+        }
+
+        private static string ParseStatus(string q)
+        {
+            string statusStr = null;
+
+            if (q.Contains("[") && q.Contains("]"))
+                statusStr = q?.Split("[")[1]?.Split("]")[0];
+
+            return statusStr;
         }
     }
 }
