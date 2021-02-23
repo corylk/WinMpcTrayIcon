@@ -1,5 +1,4 @@
 ﻿using System.Windows;
-using System.Drawing;
 using Hardcodet.Wpf.TaskbarNotification;
 using WinMpcTrayIcon.Mpc;
 
@@ -15,8 +14,7 @@ namespace WinMpcTrayIcon
         {
             base.OnStartup(e);
             _mpc = new MpcClient("C:/Scripts/mpc/mpc.exe");
-            notifyIcon = (TaskbarIcon)FindResource("NotifyIcon");
-            notifyIcon.TrayToolTipOpen += new RoutedEventHandler(NotifyIcon_TrayToolTipOpen);
+            CreateNotifyIcon();
         }
 
         protected override void OnExit(ExitEventArgs e)
@@ -28,6 +26,12 @@ namespace WinMpcTrayIcon
         private void NotifyIcon_TrayToolTipOpen(object sender, RoutedEventArgs e)
         {
             notifyIcon.ToolTipText = _mpc.GetInfo();
+        }
+
+        public void CreateNotifyIcon()
+        {
+            notifyIcon = (TaskbarIcon)FindResource("NotifyIcon");
+            notifyIcon.TrayToolTipOpen += new RoutedEventHandler(NotifyIcon_TrayToolTipOpen);
         }
     }
 }

@@ -5,15 +5,15 @@
 
     <ContextMenu x:Shared="false" x:Key="SysTrayMenu">
         <MenuItem Header="Mode">
-            <MenuItem Header="Repeat" Command="{Binding RepeatCommand}" />
-            <MenuItem Header="Random" Command="{Binding RandomCommand}" />
-            <MenuItem Header="Single" Command="{Binding SingleCommand}" />
-            <MenuItem Header="Consume" Command="{Binding ConsumeCommand}" />
+            <MenuItem Header="Repeat" Command="{Binding SendCommand}" CommandParameter="repeat" />
+            <MenuItem Header="Random" Command="{Binding SendCommand}" CommandParameter="random" />
+            <MenuItem Header="Single" Command="{Binding SendCommand}" CommandParameter="single" />
+            <MenuItem Header="Consume" Command="{Binding SendCommand}" CommandParameter="consume" />
         </MenuItem>
-        <MenuItem Header="Play" Command="{Binding PlayCommand}" />
-        <MenuItem Header="Pause" Command="{Binding PauseCommand}" />
-        <MenuItem Header="Stop" Command="{Binding StopCommand}" />
-        <MenuItem Header="Clear" Command="{Binding ClearCommand}" />
+        <MenuItem Header="Play" Command="{Binding SendCommand}" CommandParameter="play" />
+        <MenuItem Header="Pause" Command="{Binding SendCommand}" CommandParameter="pause" />
+        <MenuItem Header="Stop" Command="{Binding SendCommand}" CommandParameter="stop" />
+        <MenuItem Header="Clear" Command="{Binding SendCommand}" CommandParameter="clear" />
         <MenuItem Header="Exit" Command="{Binding ExitApplicationCommand}" />
     </ContextMenu>
 

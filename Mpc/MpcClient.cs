@@ -12,18 +12,24 @@ namespace WinMpcTrayIcon.Mpc
             _mpcPath = mpcPath;
         }
 
-        public Process SendCommand(Command cmd)
+        public Process SendCommand(string cmd)
         {
             var p = new Process
             {
-                StartInfo = new ProcessStartInfo(_mpcPath, cmd.AsArg())
+                StartInfo = new ProcessStartInfo(_mpcPath, cmd)
                 {
                     RedirectStandardOutput = true,
-                    UseShellExecute = false
+                    UseShellExecute = false,
+                    CreateNoWindow = true
                 }
             };
 
             return p;
+        }
+
+        public Process SendCommand(Command cmd)
+        {
+            return SendCommand(cmd.AsArg());
         }
 
         public Status GetStatus()
@@ -35,6 +41,19 @@ namespace WinMpcTrayIcon.Mpc
                 return status;
 
             return Status.stopped;
+        }
+
+        public string GetInfo()
+        {
+            var p = SendCommand(Command.Status);
+            p.Start();
+            string q = "";
+
+            while ( ! p.HasExited ) {
+                q += p.StandardOutput.ReadToEnd();
+            }
+
+            return q.TrimEnd('\r', '\n');;
         }
 
         public MpcInfo GetToggles()
@@ -49,19 +68,6 @@ namespace WinMpcTrayIcon.Mpc
             };
 
             return info;
-        }
-
-        public string GetInfo()
-        {
-            var p = SendCommand(Command.Status);
-            p.Start();
-            string q = "";
-
-            while ( ! p.HasExited ) {
-                q += p.StandardOutput.ReadToEnd();
-            }
-
-            return q.TrimEnd('\r', '\n');;
         }
 
         private static string ParseStatus(string q)

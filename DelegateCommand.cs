@@ -3,18 +3,15 @@ using System.Windows.Input;
 
 namespace WinMpcTrayIcon
 {
-    /// <summary>
-    /// Simplistic delegate command for the demo.
-    /// </summary>
     public class DelegateCommand : ICommand
     {
-        public Action CommandAction { get; set; }
+        public Action<string> CommandAction { get; set; }
 
         public Func<bool> CanExecuteFunc { get; set; }
 
-        public void Execute(object parameter)
+        public void Execute(object parameter = null)
         {
-            CommandAction();
+            CommandAction((string)parameter);
         }
 
         public bool CanExecute(object parameter)
