@@ -17,8 +17,8 @@ namespace WinMpcTrayIcon
             _mpc = new MpcClient("C:/Scripts/mpc/mpc.exe");
             notifyIcon = (TaskbarIcon)FindResource("NotifyIcon");
             notifyIcon.TrayToolTipOpen += new RoutedEventHandler(NotifyIcon_TrayToolTipOpen);
-            notifyIcon.TrayMouseDoubleClick += new RoutedEventHandler(NotifyIcon_TrayMouseDoubleClick);
-            SetIcon(3 - (int)_mpc.GetStatus());
+            //notifyIcon.TrayMouseDoubleClick += new RoutedEventHandler(NotifyIcon_TrayMouseDoubleClick);
+            //SetIcon(3 - (int)_mpc.GetStatus());
         }
 
         protected override void OnExit(ExitEventArgs e)

@@ -17,6 +17,7 @@
 <ItemGroup>
    <Resource Include="Icons\play.ico" />
    <Resource Include="Icons\pause.ico" />
+   <Resource Include="Icons\pauseplay.ico" />
 </ItemGroup>
 
   <ItemGroup>

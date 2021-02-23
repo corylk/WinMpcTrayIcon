@@ -8,7 +8,7 @@
     </ContextMenu>
 
     <tb:TaskbarIcon x:Key="NotifyIcon"
-                    IconSource="Icons/play.ico"
+                    IconSource="Icons/pauseplay.ico"
                     ToolTipText="{Binding GetStatus}"
                     DoubleClickCommand="{Binding PlayPauseCommand}"
                     ContextMenu="{StaticResource SysTrayMenu}">
