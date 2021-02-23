@@ -15,7 +15,7 @@ namespace WinMpcTrayIcon.Mpc
         {
             var p = new Process
             {
-                StartInfo = new ProcessStartInfo(_mpcPath, cmd.ToString().ToLower())
+                StartInfo = new ProcessStartInfo(_mpcPath, cmd.AsArg())
                 {
                     RedirectStandardOutput = true,
                     UseShellExecute = false
@@ -25,7 +25,7 @@ namespace WinMpcTrayIcon.Mpc
             return p;
         }
 
-        public string GetStatus()
+        public Status GetStatus()
         {
             var p = SendCommand(Command.Status);
             p.Start();
@@ -35,7 +35,7 @@ namespace WinMpcTrayIcon.Mpc
                 q += p.StandardOutput.ReadToEnd();
             }
 
-            return q.Split("[")[1].Split("]")[0];
+            return (Status)q.Split("[")[1].Split("]")[0];
         }
 
         public string GetInfo()

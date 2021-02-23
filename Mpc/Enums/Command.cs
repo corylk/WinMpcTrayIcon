@@ -2,8 +2,9 @@
 {
     public enum Command
     {
-        Play = 1,
-        Pause = 2,
+        Stop = 0,
+        Pause = 1,
+        Play = 2,
         Status = 3
     }
 }
