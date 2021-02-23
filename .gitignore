@@ -1,0 +1,12 @@
+.vs
+*.vssscc
+[Oo]bj/
+[Bb]in/
+.nuget/
+_ReSharper.*
+*.user
+*.suo
+*.userprefs
+*DS_Store
+*.sln.ide
+/.vscode
