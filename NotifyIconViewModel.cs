@@ -36,8 +36,8 @@ namespace WinMpcTrayIcon
                             { "paused", Command.Play }
                         };
 
-                        var action = 3 - _mpc.GetStatus().ToInt();
-                        _mpc.SendCommand(action.ToCommand()).Start();
+                        var action = 3 - (int)_mpc.GetStatus();
+                        _mpc.SendCommand((Command)action).Start();
                     }
                 };
             }
