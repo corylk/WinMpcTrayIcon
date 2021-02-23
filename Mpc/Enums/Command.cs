@@ -5,6 +5,7 @@
         Stop = 0,
         Pause = 1,
         Play = 2,
-        Status = 3
+        Status = 3,
+        Clear = 4
     }
 }

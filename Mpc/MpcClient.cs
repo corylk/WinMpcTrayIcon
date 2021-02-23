@@ -29,10 +29,13 @@ namespace WinMpcTrayIcon.Mpc
         public Status GetStatus()
         {
             var q = GetInfo();
-            var statusStr = q?.Split("[")[1]?.Split("]")[0];
 
-            if (Enum.TryParse(statusStr, out Status status))
-                return status;
+            if (q.Contains("[") && q.Contains("]"))
+            {
+                string statusStr = q?.Split("[")[1]?.Split("]")[0];
+                if (Enum.TryParse(statusStr, out Status status))
+                    return status;
+            }
 
             return Status.stopped;
         }
@@ -47,7 +50,7 @@ namespace WinMpcTrayIcon.Mpc
                 q += p.StandardOutput.ReadToEnd();
             }
 
-            return q;
+            return q.TrimEnd('\r', '\n');;
         }
     }
 }

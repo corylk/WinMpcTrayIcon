@@ -4,12 +4,11 @@
                     xmlns:local="clr-namespace:WinMpcTrayIcon">
 
     <ContextMenu x:Shared="false" x:Key="SysTrayMenu">
-        <MenuItem Header="Status" Command="{Binding StatusCommand}" />
         <MenuItem Header="Exit" Command="{Binding ExitApplicationCommand}" />
     </ContextMenu>
 
     <tb:TaskbarIcon x:Key="NotifyIcon"
-                    IconSource="/Red.ico"
+                    IconSource="Icons/play.ico"
                     ToolTipText="{Binding GetStatus}"
                     DoubleClickCommand="{Binding PlayPauseCommand}"
                     ContextMenu="{StaticResource SysTrayMenu}">

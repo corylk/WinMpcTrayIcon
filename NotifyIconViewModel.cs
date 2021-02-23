@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Input;
 using WinMpcTrayIcon.Mpc;
 
@@ -32,6 +31,40 @@ namespace WinMpcTrayIcon
                     {
                         var action = 3 - (int)_mpc.GetStatus();
                         _mpc.SendCommand((Command)action).Start();
+                    }
+                };
+            }
+        }
+
+        /// <summary>
+        /// mpc clear
+        /// </summary>
+        public ICommand ClearCommand
+        {
+            get
+            {
+                return new DelegateCommand
+                {
+                    CommandAction = () =>
+                    {
+                        _mpc.SendCommand(Command.Clear).Start();
+                    }
+                };
+            }
+        }
+
+        /// <summary>
+        /// mpc stop
+        /// </summary>
+        public ICommand StopCommand
+        {
+            get
+            {
+                return new DelegateCommand
+                {
+                    CommandAction = () =>
+                    {
+                        _mpc.SendCommand(Command.Stop).Start();
                     }
                 };
             }
