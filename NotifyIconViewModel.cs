@@ -16,6 +16,7 @@ namespace WinMpcTrayIcon
         public NotifyIconViewModel()
         {
             _mpc = new MpcClient("C:/Scripts/mpc/mpc.exe");
+            this.
         }
 
         /// <summary>
@@ -123,6 +124,78 @@ namespace WinMpcTrayIcon
         }
 
         /// <summary>
+        /// mpc repeat
+        /// </summary>
+        public ICommand RepeatCommand
+        {
+            get
+            {
+                return new DelegateCommand
+                {
+                    CanExecuteFunc = () => Application.Current.MainWindow == null,
+                    CommandAction = () =>
+                    {
+                        var status = _mpc.SendCommand(Command.Repeat).Start();
+                    }
+                };
+            }
+        }
+
+        /// <summary>
+        /// mpc random
+        /// </summary>
+        public ICommand RandomCommand
+        {
+            get
+            {
+                return new DelegateCommand
+                {
+                    CanExecuteFunc = () => Application.Current.MainWindow == null,
+                    CommandAction = () =>
+                    {
+                        var status = _mpc.SendCommand(Command.Random).Start();
+                    }
+                };
+            }
+        }
+
+        /// <summary>
+        /// mpc single
+        /// </summary>
+        public ICommand SingleCommand
+        {
+            get
+            {
+                return new DelegateCommand
+                {
+                    CanExecuteFunc = () => Application.Current.MainWindow == null,
+                    CommandAction = () =>
+                    {
+                        var status = _mpc.SendCommand(Command.Single).Start();
+                    }
+                };
+            }
+        }
+
+        /// <summary>
+        /// mpc consume
+        /// </summary>
+        public ICommand ConsumeCommand
+        {
+            get
+            {
+                return new DelegateCommand
+                {
+                    CanExecuteFunc = () => Application.Current.MainWindow == null,
+                    CommandAction = () =>
+                    {
+                        var status = _mpc.SendCommand(Command.Consume).Start();
+                    }
+                };
+            }
+        }
+
+        /// <summary>
         /// Shuts down the application.
         /// </summary>
         public static ICommand ExitApplicationCommand
@@ -134,5 +207,10 @@ namespace WinMpcTrayIcon
         }
 
         public string GetStatus => _mpc.GetInfo();
+        public string GetIsRepeatOn => _mpc.GetToggles().Repeat ? "/Icons/on.png" : "/Icons/off.png";
+        public string GetIsRandomOn => _mpc.GetToggles().Random ? "/Icons/on.png" : "/Icons/off.png";
+        public string GetIsSingleOn => _mpc.GetToggles().Single ? "/Icons/on.png" : "/Icons/off.png";
+        public string GetIsConsumeOn => _mpc.GetToggles().Consume ? "/Icons/on.png" : "/Icons/off.png";
+
     }
 }

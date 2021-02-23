@@ -4,6 +4,36 @@
                     xmlns:local="clr-namespace:WinMpcTrayIcon">
 
     <ContextMenu x:Shared="false" x:Key="SysTrayMenu">
+        <MenuItem Header="Mode">
+            <MenuItem Header="Repeat" Command="{Binding RepeatCommand}">
+                <MenuItem.Icon>
+                    <Image Width="16"
+                        Height="16"
+                        Source="{Binding GetIsRepeatOn}" />
+                </MenuItem.Icon>
+            </MenuItem>
+            <MenuItem Header="Random" Command="{Binding RandomCommand}">
+                <MenuItem.Icon>
+                    <Image Width="16"
+                        Height="16"
+                        Source="{Binding GetIsRandomOn}" />
+                </MenuItem.Icon>
+            </MenuItem>
+            <MenuItem Header="Single" Command="{Binding SingleCommand}">
+                <MenuItem.Icon>
+                    <Image Width="16"
+                        Height="16"
+                        Source="{Binding GetIsSingleOn}" />
+                </MenuItem.Icon>
+            </MenuItem>
+            <MenuItem Header="Consume" Command="{Binding ConsumeCommand}">
+                <MenuItem.Icon>
+                    <Image Width="16"
+                        Height="16"
+                        Source="{Binding GetIsConsumeOn}" />
+                </MenuItem.Icon>
+            </MenuItem>
+        </MenuItem>
         <MenuItem Header="Play" Command="{Binding PlayCommand}" />
         <MenuItem Header="Pause" Command="{Binding PauseCommand}" />
         <MenuItem Header="Stop" Command="{Binding StopCommand}" />

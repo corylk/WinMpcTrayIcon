@@ -37,6 +37,20 @@ namespace WinMpcTrayIcon.Mpc
             return Status.stopped;
         }
 
+        public MpcInfo GetToggles()
+        {
+            var q = GetInfo();
+            var info = new MpcInfo
+            {
+                Repeat = q?.Split("repeat: ")[1]?.Split(" ")[0] == "on",
+                Random = q?.Split("random: ")[1]?.Split(" ")[0] == "on",
+                Single = q?.Split("single: ")[1]?.Split(" ")[0] == "on",
+                Consume = q?.Split("consume: ")[1] == "on"
+            };
+
+            return info;
+        }
+
         public string GetInfo()
         {
             var p = SendCommand(Command.Status);
