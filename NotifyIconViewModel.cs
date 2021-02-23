@@ -16,7 +16,6 @@ namespace WinMpcTrayIcon
         public NotifyIconViewModel()
         {
             _mpc = new MpcClient("C:/Scripts/mpc/mpc.exe");
-            this.
         }
 
         /// <summary>
