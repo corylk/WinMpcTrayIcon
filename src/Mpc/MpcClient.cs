@@ -1,15 +1,18 @@
 ﻿using System;
 using System.Diagnostics;
+using Microsoft.Extensions.Configuration;
 
 namespace WinMpcTrayIcon.Mpc
 {
     public class MpcClient
     {
-        private readonly string _mpcPath;
+        private readonly MpcConfig _config;
 
-        public MpcClient(string mpcPath = "mpc")
+        public MpcClient()
         {
-            _mpcPath = mpcPath;
+            _config = new ConfigurationBuilder()
+                .SetBasePath(AppDomain.CurrentDomain.BaseDirectory)
+                .AddJsonFile("appsettings.json").Build().Get<MpcConfig>();
         }
 
         public void Cmd(string cmd)
@@ -35,7 +38,7 @@ namespace WinMpcTrayIcon.Mpc
         {
             var p = new Process
             {
-                StartInfo = new ProcessStartInfo(_mpcPath, cmd)
+                StartInfo = new ProcessStartInfo(_config.MpcPath, cmd)
                 {
                     RedirectStandardOutput = true,
                     UseShellExecute = false,
