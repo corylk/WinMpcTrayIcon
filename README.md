@@ -17,8 +17,8 @@ Hover for a status tooltip, double-click to play/pause, and right-click for a co
 * `mpc consume`
 
 ### Screenshots
-![1](https://github.com/clkmsc/WinMpcTrayIcon/blob/master/images/1.png?raw=true)
-![2](https://github.com/clkmsc/WinMpcTrayIcon/blob/master/images/2.png?raw=true)
+![Context menu](https://github.com/clkmsc/WinMpcTrayIcon/blob/master/images/2.png?raw=true)
+![Status tooltip](https://github.com/clkmsc/WinMpcTrayIcon/blob/master/images/1.png?raw=true)
 
 ## Requirements
 
