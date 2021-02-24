@@ -7,7 +7,7 @@ namespace WinMpcTrayIcon.Mpc
     {
         private readonly string _mpcPath;
 
-        public MpcClient(string mpcPath = "C:/Scripts/mpc/mpc.exe")
+        public MpcClient(string mpcPath = "mpc")
         {
             _mpcPath = mpcPath;
         }
