@@ -14,6 +14,7 @@ Hover for a status tooltip, double-click to play/pause, and right-click for a co
 * `mpc pause`
 * `mpc stop`
 * `mpc clear`
+* `mpc update`
 * `mpc repeat`
 * `mpc random`
 * `mpc single`
