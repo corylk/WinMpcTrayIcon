@@ -1,9 +1,9 @@
 # WinMpcTrayIcon
 
 ## Description
-A simple Windows system tray icon wrapper for mpc, built using [hardcodet/wpf-notifyicon](https://github.com/hardcodet/wpf-notifyicon).
-
 Control Music Player Daemon from the system tray!
+
+WinMpcTrayIcon is a simple Windows system tray icon wrapper for mpc, built using [hardcodet/wpf-notifyicon](https://github.com/hardcodet/wpf-notifyicon).
 
 ## Requirements
 
