@@ -21,6 +21,7 @@
                 <MenuItem Header="Pause" Command="{Binding MpcCmd}" CommandParameter="pause" />
                 <MenuItem Header="Stop" Command="{Binding MpcCmd}" CommandParameter="stop" />
                 <MenuItem Header="Clear" Command="{Binding MpcCmd}" CommandParameter="clear" />
+                <MenuItem Header="Update" Command="{Binding MpcCmd}" CommandParameter="update" />
                 <MenuItem Header="Exit" Command="{Binding Exit}" />
             </ContextMenu>
         </tb:TaskbarIcon.ContextMenu>
