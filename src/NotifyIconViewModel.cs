@@ -13,26 +13,14 @@ namespace WinMpcTrayIcon
             _mpc = new MpcClient();
         }
 
-        public ICommand SendCommand => new DelegateCommand
+        public ICommand MpcCmd => new DelegateCommand
         {
             CommandAction = (string cmd) => _mpc.Cmd(cmd)
         };
 
-        public ICommand PlayPauseCommand => new DelegateCommand
-        {
-            CommandAction = (string cmd) =>
-            {
-                var cmdInt = 3 - (int)_mpc.GetStatus();
-                cmd = ((Command)cmdInt).ToString();
-                _mpc.Cmd(cmd);
-            }
-        };
-
-        public static ICommand ExitApplicationCommand => new DelegateCommand
+        public static ICommand Exit => new DelegateCommand
         {
             CommandAction = (string cmd) => Application.Current.Shutdown()
         };
-
-        public string GetStatus => _mpc.GetInfo();
     }
 }

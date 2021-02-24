@@ -5,11 +5,12 @@
         stop = 0,
         pause = 1,
         play = 2,
-        status = 3,
-        clear = 4,
-        repeat = 5,
-        random = 6,
-        single = 7,
-        consume = 8
+        toggle = 3,
+        status = 4,
+        clear = 5,
+        repeat = 6,
+        random = 7,
+        single = 8,
+        consume = 9
     }
 }

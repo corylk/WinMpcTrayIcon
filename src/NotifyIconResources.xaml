@@ -3,29 +3,32 @@
                     xmlns:tb="http://www.hardcodet.net/taskbar"
                     xmlns:local="clr-namespace:WinMpcTrayIcon">
 
-    <ContextMenu x:Shared="false" x:Key="SysTrayMenu">
-        <MenuItem Header="Mode">
-            <MenuItem Header="Repeat" Command="{Binding SendCommand}" CommandParameter="repeat" />
-            <MenuItem Header="Random" Command="{Binding SendCommand}" CommandParameter="random" />
-            <MenuItem Header="Single" Command="{Binding SendCommand}" CommandParameter="single" />
-            <MenuItem Header="Consume" Command="{Binding SendCommand}" CommandParameter="consume" />
-        </MenuItem>
-        <MenuItem Header="Play" Command="{Binding SendCommand}" CommandParameter="play" />
-        <MenuItem Header="Pause" Command="{Binding SendCommand}" CommandParameter="pause" />
-        <MenuItem Header="Stop" Command="{Binding SendCommand}" CommandParameter="stop" />
-        <MenuItem Header="Clear" Command="{Binding SendCommand}" CommandParameter="clear" />
-        <MenuItem Header="Exit" Command="{Binding ExitApplicationCommand}" />
-    </ContextMenu>
-
     <tb:TaskbarIcon x:Key="NotifyIcon"
                     IconSource="Icons/pauseplay.ico"
-                    ToolTipText="{Binding GetStatus}"
-                    DoubleClickCommand="{Binding PlayPauseCommand}"
-                    ContextMenu="{StaticResource SysTrayMenu}">
+                    ToolTipText="Error"
+                    DoubleClickCommand="{Binding MpcCmd}"
+                    DoubleClickCommandParameter="toggle">
+
+        <tb:TaskbarIcon.ContextMenu>
+            <ContextMenu>
+                <MenuItem Header="Mode">
+                    <MenuItem Header="Repeat" Command="{Binding MpcCmd}" CommandParameter="repeat" />
+                    <MenuItem Header="Random" Command="{Binding MpcCmd}" CommandParameter="random" />
+                    <MenuItem Header="Single" Command="{Binding MpcCmd}" CommandParameter="single" />
+                    <MenuItem Header="Consume" Command="{Binding MpcCmd}" CommandParameter="consume" />
+                </MenuItem>
+                <MenuItem Header="Play" Command="{Binding MpcCmd}" CommandParameter="play" />
+                <MenuItem Header="Pause" Command="{Binding MpcCmd}" CommandParameter="pause" />
+                <MenuItem Header="Stop" Command="{Binding MpcCmd}" CommandParameter="stop" />
+                <MenuItem Header="Clear" Command="{Binding MpcCmd}" CommandParameter="clear" />
+                <MenuItem Header="Exit" Command="{Binding Exit}" />
+            </ContextMenu>
+        </tb:TaskbarIcon.ContextMenu>
 
         <tb:TaskbarIcon.DataContext>
             <local:NotifyIconViewModel />
         </tb:TaskbarIcon.DataContext>
+
     </tb:TaskbarIcon>
 
 </ResourceDictionary>
