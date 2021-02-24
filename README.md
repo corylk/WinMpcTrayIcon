@@ -31,10 +31,3 @@ Hover for a status tooltip, double-click to play/pause, and right-click for a co
 ## Installation
 
 * Add the location of mpc to the system's PATH environment variable
-
-## To do
-
-* next/previous
-* configuration (ip/port/etc)
-* toggle icons
-* ???
