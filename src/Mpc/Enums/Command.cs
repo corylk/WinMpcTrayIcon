@@ -8,9 +8,10 @@
         toggle = 3,
         status = 4,
         clear = 5,
-        repeat = 6,
-        random = 7,
-        single = 8,
-        consume = 9
+        update = 6,
+        repeat = 7,
+        random = 8,
+        single = 9,
+        consume = 10
     }
 }
