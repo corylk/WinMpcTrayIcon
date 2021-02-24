@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Text;
 using Microsoft.Extensions.Configuration;
 
 namespace WinMpcTrayIcon.Mpc
@@ -36,9 +37,15 @@ namespace WinMpcTrayIcon.Mpc
 
         private Process GetProc(string cmd)
         {
+            var args = new StringBuilder();
+            args.Append(GetArg("h", _config.MpdIp));
+            args.Append(GetArg("p", _config.MpdPort));
+            args.Append(GetArg("P", _config.MpdPassword));
+            args.Append(cmd);
+
             var p = new Process
             {
-                StartInfo = new ProcessStartInfo(_config.MpcPath, cmd)
+                StartInfo = new ProcessStartInfo(_config.MpcPath, args.ToString())
                 {
                     RedirectStandardOutput = true,
                     UseShellExecute = false,
@@ -47,6 +54,11 @@ namespace WinMpcTrayIcon.Mpc
             };
 
             return p;
+        }
+
+        private static string GetArg(string key, string value)
+        {
+            return !string.IsNullOrEmpty(value) ? $"-{key} {value} " : string.Empty;
         }
     }
 }

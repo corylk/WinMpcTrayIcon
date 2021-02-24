@@ -4,24 +4,56 @@
                     xmlns:local="clr-namespace:WinMpcTrayIcon">
 
     <tb:TaskbarIcon x:Key="NotifyIcon"
-                    IconSource="Icons/pauseplay.ico"
+                    IconSource="Icons/ico/pauseplay.ico"
                     ToolTipText="Error"
                     DoubleClickCommand="{Binding MpcCmd}"
                     DoubleClickCommandParameter="toggle">
 
         <tb:TaskbarIcon.ContextMenu>
             <ContextMenu>
-                <MenuItem Header="Mode">
+                <MenuItem Header="Playback">
                     <MenuItem Header="Repeat" Command="{Binding MpcCmd}" CommandParameter="repeat" />
                     <MenuItem Header="Random" Command="{Binding MpcCmd}" CommandParameter="random" />
                     <MenuItem Header="Single" Command="{Binding MpcCmd}" CommandParameter="single" />
                     <MenuItem Header="Consume" Command="{Binding MpcCmd}" CommandParameter="consume" />
                 </MenuItem>
-                <MenuItem Header="Play" Command="{Binding MpcCmd}" CommandParameter="play" />
-                <MenuItem Header="Pause" Command="{Binding MpcCmd}" CommandParameter="pause" />
-                <MenuItem Header="Stop" Command="{Binding MpcCmd}" CommandParameter="stop" />
-                <MenuItem Header="Clear" Command="{Binding MpcCmd}" CommandParameter="clear" />
                 <MenuItem Header="Update" Command="{Binding MpcCmd}" CommandParameter="update" />
+                <MenuItem Header="Clear" Command="{Binding MpcCmd}" CommandParameter="clear" />
+                <MenuItem Header="Stop" Command="{Binding MpcCmd}" CommandParameter="stop">
+                    <MenuItem.Icon>
+                        <Image Width="16"
+                            Height="16"
+                            Source="Icons/png/stop.png" />
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem Header="Pause" Command="{Binding MpcCmd}" CommandParameter="pause">
+                    <MenuItem.Icon>
+                        <Image Width="16"
+                            Height="16"
+                            Source="Icons/png/pause.png" />
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem Header="Play" Command="{Binding MpcCmd}" CommandParameter="play">
+                    <MenuItem.Icon>
+                        <Image Width="16"
+                            Height="16"
+                            Source="Icons/png/play.png" />
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem Header="Next" Command="{Binding MpcCmd}" CommandParameter="next">
+                    <MenuItem.Icon>
+                        <Image Width="16"
+                            Height="16"
+                            Source="Icons/png/next.png" />
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem Header="Previous" Command="{Binding MpcCmd}" CommandParameter="prev">
+                    <MenuItem.Icon>
+                        <Image Width="16"
+                            Height="16"
+                            Source="Icons/png/prev.png" />
+                    </MenuItem.Icon>
+                </MenuItem>
                 <MenuItem Header="Exit" Command="{Binding Exit}" />
             </ContextMenu>
         </tb:TaskbarIcon.ContextMenu>

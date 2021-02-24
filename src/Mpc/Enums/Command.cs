@@ -6,6 +6,8 @@
         pause,
         play,
         toggle,
+        next,
+        prev,
         status,
         clear,
         update,

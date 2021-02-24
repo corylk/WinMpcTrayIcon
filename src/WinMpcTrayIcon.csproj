@@ -21,11 +21,12 @@
   </ItemGroup>
 
 <ItemGroup>
-   <Resource Include="Icons\play.ico" />
-   <Resource Include="Icons\pause.ico" />
-   <Resource Include="Icons\pauseplay.ico" />
-   <Resource Include="Icons\on.png" />
-   <Resource Include="Icons\off.png" />
+   <Resource Include="Icons\ico\pauseplay.ico" />
+   <Resource Include="Icons\png\play.png" />
+   <Resource Include="Icons\png\pause.png" />
+   <Resource Include="Icons\png\stop.png" />
+   <Resource Include="Icons\png\next.png" />
+   <Resource Include="Icons\png\prev.png" />
 </ItemGroup>
 
   <ItemGroup>
