@@ -30,6 +30,6 @@ Middle-click for a status balloon, double-click to toggle play/pause, and right-
 
 * [mpc.exe](https://www.musicpd.org/download/mpc/0/)
 
-## Installation
+## Setup
 
-* Add the location of mpc to the system's PATH environment variable
+The default configuration expects an mpd instance on localhost and mpc to be added to the system's PATH environment variable. Alternatively, build with your own configuration in `appsettings.json`.
