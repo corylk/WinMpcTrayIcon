@@ -1,6 +1,5 @@
 ﻿using System.Drawing;
 using System.Windows.Forms;
-using WinMpcTrayIcon.Menu;
 
 namespace WinMpcTrayIcon.Menu
 {
