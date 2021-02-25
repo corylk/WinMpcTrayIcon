@@ -64,7 +64,7 @@ namespace WinMpcTrayIcon
 
         private void MpcCommand(Command cmd)
         {
-            _mpc.Cmd(cmd.ToString());
+            _mpc.Cmd(cmd);
         }
 
         private void Exit()
