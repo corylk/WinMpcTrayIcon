@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Drawing;
+using WinMpcTrayIcon.Mpc;
 
 namespace WinMpcTrayIcon
 {
@@ -7,15 +8,15 @@ namespace WinMpcTrayIcon
     {
         public string Text { get; set; }
 
-        public Image Image { get; set; }
+        public Command Command { get; set; }
 
-        public EventHandler Command { get; set; }
+        public bool HasImage { get; set; }
 
-        public MenuItem(string text, Image image, EventHandler command)
+        public MenuItem(string text, Command command, bool hasImage)
         {
             Text = text;
-            Image = image;
             Command = command;
+            HasImage = hasImage;
         }
     }
 }

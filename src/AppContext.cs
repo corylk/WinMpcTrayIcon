@@ -44,20 +44,28 @@ namespace WinMpcTrayIcon
 
             var commands = new List<MenuItem>()
             {
-                new MenuItem("Update", null, (sender, e) => MpcCommand(Command.update)),
-                new MenuItem("Clear", null, (sender, e) => MpcCommand(Command.clear)),
-                new MenuItem("Stop", Image.FromFile($"Icons/png/{Command.stop}.png"), (sender, e) => MpcCommand(Command.stop)),
-                new MenuItem("Pause", Image.FromFile($"Icons/png/{Command.pause}.png"), (sender, e) => MpcCommand(Command.pause)),
-                new MenuItem("Play", Image.FromFile($"Icons/png/{Command.play}.png"), (sender, e) => MpcCommand(Command.play)),
-                new MenuItem("Next ", Image.FromFile($"Icons/png/{Command.next}.png"), (sender, e) => MpcCommand(Command.next)),
-                new MenuItem("Previous", Image.FromFile($"Icons/png/{Command.prev}.png"), (sender, e) => MpcCommand(Command.prev)),
-                new MenuItem("Exit", null, (sender, e) => Exit()),
+                new MenuItem("Update", Command.update, false),
+                new MenuItem("Clear", Command.clear, false),
+                new MenuItem("Stop", Command.stop, true),
+                new MenuItem("Pause", Command.pause, true),
+                new MenuItem("Play", Command.play, true),
+                new MenuItem("Next ", Command.next, true),
+                new MenuItem("Previous", Command.prev, true),
             };
 
             foreach(var command in commands)
             {
-                m.Items.Add(command.ToToolStripMenuItem());
+                var i = new ToolStripMenuItem();
+                i.Image = command.HasImage ? Image.FromFile($"Icons/png/{command.Command}.png") : null;
+                i.Text = command.Text;
+                i.Click += (sender, e) => MpcCommand(command.Command);
+                m.Items.Add(i);
             }
+
+            var exit = new ToolStripMenuItem();
+            exit.Text = "Exit";
+            exit.Click += (sender, e) => Exit();
+            m.Items.Add(exit);
 
             return m;
         }
