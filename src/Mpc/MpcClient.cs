@@ -16,15 +16,14 @@ namespace WinMpcTrayIcon.Mpc
                 .AddJsonFile("appsettings.json").Build().Get<MpcConfig>();
         }
 
-        public void Cmd(string cmd)
+        public void Cmd(Command cmd)
         {
-            if (Enum.IsDefined(typeof(Command), cmd))
-                GetProc(cmd).Start();
+            GetProc(cmd).Start();
         }
 
         public string GetInfo()
         {
-            var p = GetProc(Command.status.ToString());
+            var p = GetProc(Command.status);
             p.Start();
             string q = "";
 
@@ -35,13 +34,27 @@ namespace WinMpcTrayIcon.Mpc
             return q.TrimEnd('\r', '\n');;
         }
 
-        private Process GetProc(string cmd)
+        public MpcInfo GetToggles()
+        {
+            var q = GetInfo();
+            var info = new MpcInfo
+            {
+                Repeat = q?.Split("repeat: ")[1]?.Split(" ")[0] == "on",
+                Random = q?.Split("random: ")[1]?.Split(" ")[0] == "on",
+                Single = q?.Split("single: ")[1]?.Split(" ")[0] == "on",
+                Consume = q?.Split("consume: ")[1].TrimEnd() == "on"
+            };
+
+            return info;
+        }
+
+        private Process GetProc(Command cmd)
         {
             var args = new StringBuilder();
             args.Append(GetArg("h", _config.MpdIp));
             args.Append(GetArg("p", _config.MpdPort));
             args.Append(GetArg("P", _config.MpdPassword));
-            args.Append(cmd);
+            args.Append(cmd.ToString());
 
             var p = new Process
             {
