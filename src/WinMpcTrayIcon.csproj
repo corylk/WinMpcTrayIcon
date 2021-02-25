@@ -6,7 +6,6 @@
     <UseWPF>true</UseWPF>
     <UseWindowsForms>true</UseWindowsForms>
     <RootNamespace>WinMpcTrayIcon</RootNamespace>
-    <StartupObject>WinMpcTrayIcon.Program</StartupObject>
     <GenerateResourceUsePreserializedResources>true</GenerateResourceUsePreserializedResources>
     <PublishSingleFile>true</PublishSingleFile>
     <SelfContained>true</SelfContained>
