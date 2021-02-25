@@ -1,19 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
-using WinMpcTrayIcon.Mpc;
 
 namespace WinMpcTrayIcon.Menu
 {
     public class ContextMenu
     {
-        private readonly MpcClient _mpc;
-
         public List<MenuItem> Items { get; set; }
 
         public ContextMenu(List<MenuItem> items)
         {
-            _mpc = new MpcClient();
             Items = items;
         }
 
@@ -36,34 +32,34 @@ namespace WinMpcTrayIcon.Menu
 
                 var types = new Dictionary<Type, int>()
                 {
-                    { typeof(MpcMenuItem), 1 },
-                    { typeof(GroupMenuItem), 2 },
+                    { typeof(GroupMenuItem), 1 },
+                    { typeof(MpcMenuItem), 2 },
                     { typeof(SysMenuItem), 3 },
+                    { typeof(SwitchMenuItem), 4 }
                 };
 
                 switch(types[command.GetType()])
                 {
                     case 1:
-                        i = ((MpcMenuItem)command).ToToolStripMenuItem();
-                        i.Click += (sender, e) => MpcCommand(((MpcMenuItem)command).Command);
-                        break;
-                    case 2:
                         i = ((GroupMenuItem)command).ToToolStripMenuItem();
                         Build(i.DropDownItems, ((GroupMenuItem)command).Items);
                         break;
+                    case 2:
+                        i = ((MpcMenuItem)command).ToToolStripMenuItem();
+                        i.Click += ((MpcMenuItem)command).EventHandler;
+                        break;
                     case 3:
                         i = ((SysMenuItem)command).ToToolStripMenuItem();
-                        i.Click += ((SysMenuItem)command).Command;
+                        i.Click += ((SysMenuItem)command).EventHandler;
+                        break;
+                    case 4:
+                        i = ((SwitchMenuItem)command).ToToolStripMenuItem();
+                        i.Click += ((SwitchMenuItem)command).EventHandler;
                         break;
                 }
 
                 items.Add(i);
             }
-        }
-
-        private void MpcCommand(Command cmd)
-        {
-            _mpc.Cmd(cmd);
         }
     }
 }

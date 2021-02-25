@@ -3,16 +3,16 @@ using WinMpcTrayIcon.Mpc;
 
 namespace WinMpcTrayIcon.Menu
 {
-    public class MpcMenuItem : SysMenuItem
+    public class SwitchMenuItem : SysMenuItem
     {
         public string Image { get; set; }
 
-        public MpcMenuItem(string text, EventHandler eventHandler, Command? command = null)
+        public SwitchMenuItem(string text, EventHandler eventHandler, bool isActive)
             : base(text, eventHandler)
         {
             Text = text;
             EventHandler = eventHandler;
-            Image = command != null ? $"Icons/png/{command}.png" : null;
+            Image = isActive ? "Icons/png/on.png" : "Icons/png/off.png";
         }
     }
 }

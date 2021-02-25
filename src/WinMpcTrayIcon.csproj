@@ -34,6 +34,8 @@
     <Resource Include="Icons\png\stop.png" />
     <Resource Include="Icons\png\next.png" />
     <Resource Include="Icons\png\prev.png" />
+    <Resource Include="Icons\png\on.png" />
+    <Resource Include="Icons\png\off.png" />
   </ItemGroup>
 
   <ItemGroup>

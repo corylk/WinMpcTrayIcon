@@ -2,7 +2,7 @@
 using System.Windows.Forms;
 using WinMpcTrayIcon.Menu;
 
-namespace WinMpcTrayIcon
+namespace WinMpcTrayIcon.Menu
 {
     public static class MenuItemExtensions
     {
@@ -10,17 +10,18 @@ namespace WinMpcTrayIcon
         {
             var i = new ToolStripMenuItem
             {
-                Image = command.HasImage ? Image.FromFile($"Icons/png/{command.Command}.png") : null,
+                Image = command.Image != null ? Image.FromFile(command.Image) : null,
                 Text = command.Text
             };
 
             return i;
         }
 
-        public static ToolStripMenuItem ToToolStripMenuItem(this GroupMenuItem command)
+        public static ToolStripMenuItem ToToolStripMenuItem(this SwitchMenuItem command)
         {
             var i = new ToolStripMenuItem
             {
+                Image = command.Image != null ? Image.FromFile(command.Image) : null,
                 Text = command.Text
             };
 

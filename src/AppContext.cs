@@ -13,21 +13,17 @@ namespace WinMpcTrayIcon
 
         private readonly NotifyIcon _tray;
 
-        private readonly ContextMenuStrip _menu;
-
         public AppContext()
         {
             Application.ApplicationExit += this.ApplicationExitHandler;
 
-            var menuItems = GetMenuItems();
             _mpc = new MpcClient();
-            _menu = new ContextMenu(menuItems).ToContextMenuStrip();
 
             _tray = new NotifyIcon
             {
-                Text = "WinMpcTrayIcon",
+                Text = GetType().Namespace,
                 Icon = new Icon(GetType(), "Icons.ico.pauseplay.ico"),
-                ContextMenuStrip = _menu,
+                ContextMenuStrip = GetContextMenu(),
                 Visible = true
             };
 
@@ -52,22 +48,24 @@ namespace WinMpcTrayIcon
 
         private List<MenuItem> GetMenuItems()
         {
+            var switches = _mpc.GetToggles();
+
             var commands = new List<MenuItem>()
             {
                 new GroupMenuItem("Playback", new List<MenuItem>()
                 {
-                    new MpcMenuItem("Repeat", Command.repeat, false),
-                    new MpcMenuItem("Random", Command.random, false),
-                    new MpcMenuItem("Single", Command.single, false),
-                    new MpcMenuItem("Consume", Command.consume, false),
+                    new SwitchMenuItem("Repeat", (sender, e) => MpcToggle(Command.repeat), switches.Repeat),
+                    new SwitchMenuItem("Random", (sender, e) => MpcToggle(Command.random), switches.Random),
+                    new SwitchMenuItem("Single", (sender, e) => MpcToggle(Command.single), switches.Single),
+                    new SwitchMenuItem("Consume", (sender, e) => MpcToggle(Command.consume), switches.Consume),
                 }),
-                new MpcMenuItem("Update", Command.update, false),
-                new MpcMenuItem("Clear", Command.clear, false),
-                new MpcMenuItem("Stop", Command.stop, true),
-                new MpcMenuItem("Pause", Command.pause, true),
-                new MpcMenuItem("Play", Command.play, true),
-                new MpcMenuItem("Next ", Command.next, true),
-                new MpcMenuItem("Previous", Command.prev, true),
+                new MpcMenuItem("Update", (sender, e) => MpcCommand(Command.update)),
+                new MpcMenuItem("Clear", (sender, e) => MpcCommand(Command.clear)),
+                new MpcMenuItem("Stop", (sender, e) => MpcCommand(Command.stop), Command.stop),
+                new MpcMenuItem("Pause", (sender, e) => MpcCommand(Command.pause), Command.pause),
+                new MpcMenuItem("Play", (sender, e) => MpcCommand(Command.play), Command.play),
+                new MpcMenuItem("Next ", (sender, e) => MpcCommand(Command.next), Command.next),
+                new MpcMenuItem("Previous", (sender, e) => MpcCommand(Command.prev), Command.prev),
                 new SysMenuItem("Status", new EventHandler(ShowStatus)),
                 new SysMenuItem("Exit", new EventHandler(Exit))
             };
@@ -75,14 +73,26 @@ namespace WinMpcTrayIcon
             return commands;
         }
 
+        private ContextMenuStrip GetContextMenu()
+        {
+            var menuItems = GetMenuItems();
+            return new ContextMenu(menuItems).ToContextMenuStrip();
+        }
+
         private void MpcCommand(Command cmd)
         {
             _mpc.Cmd(cmd);
         }
 
+        private void MpcToggle(Command cmd)
+        {
+            _mpc.Cmd(cmd);
+            _tray.ContextMenuStrip = GetContextMenu();
+        }
+
         private void ShowStatus(object sender, EventArgs e)
         {
-            _tray.ShowBalloonTip(8000, "mpc status", _mpc.GetInfo(), ToolTipIcon.Info);
+            _tray.ShowBalloonTip(8000, "mpc status", _mpc.GetInfo(), ToolTipIcon.None);
         }
 
         private void OnClick(object sender, MouseEventArgs e)

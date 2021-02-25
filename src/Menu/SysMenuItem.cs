@@ -4,13 +4,13 @@ namespace WinMpcTrayIcon.Menu
 {
     public class SysMenuItem : MenuItem
     {
-        public EventHandler Command { get; set; }
+        public EventHandler EventHandler { get; set; }
 
-        public SysMenuItem(string text, EventHandler command)
+        public SysMenuItem(string text, EventHandler eventHandler)
             : base(text)
         {
             Text = text;
-            Command = command;
+            EventHandler = eventHandler;
         }
     }
 }
