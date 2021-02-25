@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
@@ -7,6 +7,7 @@
     <UseWindowsForms>true</UseWindowsForms>
     <RootNamespace>WinMpcTrayIcon</RootNamespace>
     <GenerateResourceUsePreserializedResources>true</GenerateResourceUsePreserializedResources>
+    <StartupObject>WinMpcTrayIcon.Program</StartupObject>
   </PropertyGroup>
 
   <ItemGroup>
@@ -20,8 +21,9 @@
     <Compile DependentUpon="%(Filename)" SubType="Designer" Update="**\*.xaml$(DefaultLanguageSourceExtension)" />
   </ItemGroup>
 
+
 <ItemGroup>
-   <Resource Include="Icons\ico\pauseplay.ico" />
+  <EmbeddedResource Include="Icons\ico\pauseplay.ico" />
    <Resource Include="Icons\png\play.png" />
    <Resource Include="Icons\png\pause.png" />
    <Resource Include="Icons\png\stop.png" />
@@ -30,7 +32,7 @@
 </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Hardcodet.NotifyIcon.Wpf" Version="1.0.8" />
+    <PackageReference Include="Microsoft.Windows.Compatibility" Version="5.0.0" />
     <PackageReference Include="Microsoft.Extensions.Configuration.Binder" Version="5.0.0" />
     <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="5.0.0" />
     <PackageReference Include="System.Resources.Extensions" Version="4.6.0" PrivateAssets="All" />
