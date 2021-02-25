@@ -20,16 +20,17 @@ namespace WinMpcTrayIcon
 
             _tray = new NotifyIcon
             {
-                Text = "Test", //_mpc.GetInfo();
+                Text = "WinMpcTrayIcon",
                 Icon = new Icon(GetType(), "Icons.ico.pauseplay.ico"),
                 ContextMenuStrip = _menu,
                 Visible = true
             };
 
             _tray.MouseDoubleClick += (sender, e) => MpcCommand(Command.toggle);
+            _tray.MouseClick += new MouseEventHandler(ShowStatusOnClick);
         }
 
-        protected override void Dispose( bool disposing )
+        protected override void Dispose(bool disposing)
         {
             if( disposing )
             {
@@ -62,6 +63,11 @@ namespace WinMpcTrayIcon
                 m.Items.Add(i);
             }
 
+            var status = new ToolStripMenuItem();
+            status.Text = "Status";
+            status.Click += (sender, e) => ShowStatus();
+            m.Items.Add(status);
+
             var exit = new ToolStripMenuItem();
             exit.Text = "Exit";
             exit.Click += (sender, e) => Exit();
@@ -73,6 +79,17 @@ namespace WinMpcTrayIcon
         private void MpcCommand(Command cmd)
         {
             _mpc.Cmd(cmd);
+        }
+
+        private void ShowStatusOnClick(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Middle)
+                ShowStatus();
+        }
+
+        private void ShowStatus()
+        {
+            _tray.ShowBalloonTip(8000, "mpc status", _mpc.GetInfo(), ToolTipIcon.Info);
         }
 
         private void Exit()
