@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
+using WinMpcTrayIcon.Menu;
 using WinMpcTrayIcon.Mpc;
 
 namespace WinMpcTrayIcon
@@ -18,8 +19,9 @@ namespace WinMpcTrayIcon
         {
             Application.ApplicationExit += this.ApplicationExitHandler;
 
+            var menuItems = GetMenuItems();
             _mpc = new MpcClient();
-            _menu = BuildMenu();
+            _menu = new ContextMenu(menuItems).ToContextMenuStrip();
 
             _tray = new NotifyIcon
             {
@@ -48,55 +50,29 @@ namespace WinMpcTrayIcon
             this.OnApplicationExit(e);
         }
 
-        private ContextMenuStrip BuildMenu()
+        private List<MenuItem> GetMenuItems()
         {
-            var m = new ContextMenuStrip();
-
-            var modes = new MenuItem("Playback").ToToolStripMenuItem();
-
-            var modeCommands = new List<MenuItem>()
-            {
-                new MenuItem("Repeat", Command.repeat, false),
-                new MenuItem("Random", Command.random, false),
-                new MenuItem("Single", Command.single, false),
-                new MenuItem("Consume", Command.consume, false),
-            };
-
-            AddCommands(modes.DropDownItems, modeCommands);
-            m.Items.Add(modes);
-
             var commands = new List<MenuItem>()
             {
-                new MenuItem("Update", Command.update, false),
-                new MenuItem("Clear", Command.clear, false),
-                new MenuItem("Stop", Command.stop, true),
-                new MenuItem("Pause", Command.pause, true),
-                new MenuItem("Play", Command.play, true),
-                new MenuItem("Next ", Command.next, true),
-                new MenuItem("Previous", Command.prev, true),
+                new GroupMenuItem("Playback", new List<MenuItem>()
+                {
+                    new MpcMenuItem("Repeat", Command.repeat, false),
+                    new MpcMenuItem("Random", Command.random, false),
+                    new MpcMenuItem("Single", Command.single, false),
+                    new MpcMenuItem("Consume", Command.consume, false),
+                }),
+                new MpcMenuItem("Update", Command.update, false),
+                new MpcMenuItem("Clear", Command.clear, false),
+                new MpcMenuItem("Stop", Command.stop, true),
+                new MpcMenuItem("Pause", Command.pause, true),
+                new MpcMenuItem("Play", Command.play, true),
+                new MpcMenuItem("Next ", Command.next, true),
+                new MpcMenuItem("Previous", Command.prev, true),
+                new SysMenuItem("Status", new EventHandler(ShowStatus)),
+                new SysMenuItem("Exit", new EventHandler(Exit))
             };
 
-            AddCommands(m.Items, commands);
-
-            var status = new MenuItem("Status").ToToolStripMenuItem();
-            status.Click += (sender, e) => ShowStatus();
-            m.Items.Add(status);
-
-            var exit = new MenuItem("Exit").ToToolStripMenuItem();
-            exit.Click += (sender, e) => Exit();
-            m.Items.Add(exit);
-
-            return m;
-        }
-
-        private void AddCommands(ToolStripItemCollection items, List<MenuItem> commands)
-        {
-            foreach(var command in commands)
-            {
-                var i = command.ToToolStripMenuItem();
-                i.Click += (sender, e) => MpcCommand(command.Command);
-                items.Add(i);
-            }
+            return commands;
         }
 
         private void MpcCommand(Command cmd)
@@ -104,7 +80,7 @@ namespace WinMpcTrayIcon
             _mpc.Cmd(cmd);
         }
 
-        private void ShowStatus()
+        private void ShowStatus(object sender, EventArgs e)
         {
             _tray.ShowBalloonTip(8000, "mpc status", _mpc.GetInfo(), ToolTipIcon.Info);
         }
@@ -112,10 +88,10 @@ namespace WinMpcTrayIcon
         private void OnClick(object sender, MouseEventArgs e)
         {
             if (e.Button == MouseButtons.Middle)
-                ShowStatus();
+                ShowStatus(sender, e);
         }
 
-        private void Exit()
+        private void Exit(object sender, EventArgs e)
         {
             this.ExitThread();
         }
