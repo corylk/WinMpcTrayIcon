@@ -21,9 +21,9 @@ namespace WinMpcTrayIcon.Mpc
             GetProc(cmd).Start();
         }
 
-        public string GetInfo()
+        public string GetInfo(Command cmd = Command.status)
         {
-            var p = GetProc(Command.status);
+            var p = GetProc(cmd);
             p.Start();
             string q = "";
 
@@ -32,6 +32,17 @@ namespace WinMpcTrayIcon.Mpc
             }
 
             return q.TrimEnd('\r', '\n');;
+        }
+
+        public Status GetStatus(Command cmd = Command.status)
+        {
+            var q = GetInfo(cmd);
+            var statusStr = q?.Split("[")[1]?.Split("]")[0];
+
+            if (Enum.TryParse(statusStr, out Status status))
+                return status;
+
+            return Status.paused;
         }
 
         public MpcInfo GetToggles()

@@ -29,6 +29,9 @@
 
   <ItemGroup>
     <EmbeddedResource Include="Icons\ico\pauseplay.ico" />
+    <EmbeddedResource Include="Icons\ico\pause.ico" />
+    <EmbeddedResource Include="Icons\ico\play.ico" />
+    <EmbeddedResource Include="Icons\ico\stop.ico" />
     <Resource Include="Icons\png\play.png" />
     <Resource Include="Icons\png\pause.png" />
     <Resource Include="Icons\png\stop.png" />

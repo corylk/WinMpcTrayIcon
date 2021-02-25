@@ -22,7 +22,7 @@ namespace WinMpcTrayIcon
             _tray = new NotifyIcon
             {
                 Text = GetType().Namespace,
-                Icon = new Icon(GetType(), "Icons.ico.pauseplay.ico"),
+                Icon = GetIcon(_mpc.GetStatus()),
                 ContextMenuStrip = GetContextMenu(),
                 Visible = true
             };
@@ -79,9 +79,22 @@ namespace WinMpcTrayIcon
             return new ContextMenu(menuItems).ToContextMenuStrip();
         }
 
+        private Icon GetIcon(Status status)
+        {
+            int action = Math.Min(2, 3 - (int)status);
+
+            return new Icon(GetType(), $"Icons.ico.{(Command)action}.ico");
+        }
+
         private void MpcCommand(Command cmd)
         {
-            _mpc.Cmd(cmd);
+            if (cmd == Command.play || cmd == Command.pause || cmd == Command.stop)
+                _tray.Icon = GetIcon((Status)cmd);
+
+            if (cmd == Command.toggle)
+                _tray.Icon = GetIcon(_mpc.GetStatus(Command.toggle));
+            else
+                _mpc.Cmd(cmd);
         }
 
         private void MpcToggle(Command cmd)
