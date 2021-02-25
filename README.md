@@ -26,10 +26,12 @@ Middle-click for a status balloon, double-click to toggle play/pause, and right-
 ![Context menu](https://github.com/clkmsc/WinMpcTrayIcon/blob/master/images/2.png?raw=true)
 ![Status tooltip](https://github.com/clkmsc/WinMpcTrayIcon/blob/master/images/1.png?raw=true)
 
-## Requirements
+## Setup
+
+### Requirements
 
 * [mpc.exe](https://www.musicpd.org/download/mpc/0/)
 
-## Setup
+### Configuration
 
 The default configuration expects an mpd instance on localhost and mpc to be added to the system's PATH environment variable. Alternatively, build with your own configuration in `appsettings.json`.
