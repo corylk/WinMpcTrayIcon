@@ -28,6 +28,8 @@ Middle-click for a status balloon, double-click to toggle play/pause, and right-
 
 ## Setup
 
+Run it like a console app with `dotnet` (from executable) or `dotnet run` (from source).
+
 ### Requirements
 
 * [mpc.exe](https://www.musicpd.org/download/mpc/0/)
