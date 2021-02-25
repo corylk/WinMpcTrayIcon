@@ -14,5 +14,13 @@ namespace WinMpcTrayIcon.Menu
             EventHandler = eventHandler;
             Image = command != null ? $"Icons/png/{command}.png" : null;
         }
+
+        public MpcMenuItem(string text, EventHandler eventHandler, bool isActive)
+            : base(text, eventHandler)
+        {
+            Text = text;
+            EventHandler = eventHandler;
+            Image = isActive ? "Icons/png/on.png" : "Icons/png/off.png";
+        }
     }
 }

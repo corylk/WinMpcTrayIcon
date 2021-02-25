@@ -14,8 +14,6 @@
         repeat,
         random,
         single,
-        consume,
-        on,
-        off
+        consume
     }
 }

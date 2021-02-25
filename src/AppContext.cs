@@ -54,10 +54,10 @@ namespace WinMpcTrayIcon
             {
                 new GroupMenuItem("Playback", new List<MenuItem>()
                 {
-                    new SwitchMenuItem("Repeat", (sender, e) => MpcToggle(Command.repeat), switches.Repeat),
-                    new SwitchMenuItem("Random", (sender, e) => MpcToggle(Command.random), switches.Random),
-                    new SwitchMenuItem("Single", (sender, e) => MpcToggle(Command.single), switches.Single),
-                    new SwitchMenuItem("Consume", (sender, e) => MpcToggle(Command.consume), switches.Consume),
+                    new MpcMenuItem("Repeat", (sender, e) => MpcToggle(Command.repeat), switches.Repeat),
+                    new MpcMenuItem("Random", (sender, e) => MpcToggle(Command.random), switches.Random),
+                    new MpcMenuItem("Single", (sender, e) => MpcToggle(Command.single), switches.Single),
+                    new MpcMenuItem("Consume", (sender, e) => MpcToggle(Command.consume), switches.Consume),
                 }),
                 new MpcMenuItem("Update", (sender, e) => MpcCommand(Command.update)),
                 new MpcMenuItem("Clear", (sender, e) => MpcCommand(Command.clear)),

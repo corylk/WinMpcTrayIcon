@@ -28,35 +28,12 @@ namespace WinMpcTrayIcon.Menu
 
             foreach(var command in commands)
             {
-                var i = new ToolStripMenuItem();
+                ToolStripMenuItem i = command.ToToolStripMenuItem();;
 
-                var types = new Dictionary<Type, int>()
-                {
-                    { typeof(GroupMenuItem), 1 },
-                    { typeof(MpcMenuItem), 2 },
-                    { typeof(SysMenuItem), 3 },
-                    { typeof(SwitchMenuItem), 4 }
-                };
-
-                switch(types[command.GetType()])
-                {
-                    case 1:
-                        i = ((GroupMenuItem)command).ToToolStripMenuItem();
-                        Build(i.DropDownItems, ((GroupMenuItem)command).Items);
-                        break;
-                    case 2:
-                        i = ((MpcMenuItem)command).ToToolStripMenuItem();
-                        i.Click += ((MpcMenuItem)command).EventHandler;
-                        break;
-                    case 3:
-                        i = ((SysMenuItem)command).ToToolStripMenuItem();
-                        i.Click += ((SysMenuItem)command).EventHandler;
-                        break;
-                    case 4:
-                        i = ((SwitchMenuItem)command).ToToolStripMenuItem();
-                        i.Click += ((SwitchMenuItem)command).EventHandler;
-                        break;
-                }
+                if (command.GetType() == typeof(GroupMenuItem))
+                    Build(i.DropDownItems, ((GroupMenuItem)command).Items);
+                else
+                    i.Click += ((SysMenuItem)command).EventHandler;
 
                 items.Add(i);
             }
