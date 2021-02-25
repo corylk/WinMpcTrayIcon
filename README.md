@@ -7,7 +7,7 @@ WinMpcTrayIcon is a simple Windows system tray icon wrapper for mpc.
 
 ### Usage
 
-Hover for a status tooltip, double-click to play/pause, and right-click for a context menu of additional actions. Supported mpc commands are:
+Middle-click for a status balloon, double-click to play/pause, and right-click for a context menu of additional actions. Supported mpc commands are:
 * `mpc status`
 * `mpc toggle`
 * `mpc play`
