@@ -30,7 +30,7 @@ namespace WinMpcTrayIcon
             };
 
             _tray.MouseDoubleClick += (sender, e) => MpcCommand(Command.toggle);
-            _tray.MouseClick += new MouseEventHandler(ShowStatusOnClick);
+            _tray.MouseClick += (sender, e) => OnClick(sender, e);
         }
 
         protected virtual void OnApplicationExit(EventArgs e)
@@ -52,6 +52,19 @@ namespace WinMpcTrayIcon
         {
             var m = new ContextMenuStrip();
 
+            var modes = new MenuItem("Playback").ToToolStripMenuItem();
+
+            var modeCommands = new List<MenuItem>()
+            {
+                new MenuItem("Repeat", Command.repeat, false),
+                new MenuItem("Random", Command.random, false),
+                new MenuItem("Single", Command.single, false),
+                new MenuItem("Consume", Command.consume, false),
+            };
+
+            AddCommands(modes.DropDownItems, modeCommands);
+            m.Items.Add(modes);
+
             var commands = new List<MenuItem>()
             {
                 new MenuItem("Update", Command.update, false),
@@ -63,26 +76,27 @@ namespace WinMpcTrayIcon
                 new MenuItem("Previous", Command.prev, true),
             };
 
-            foreach(var command in commands)
-            {
-                var i = new ToolStripMenuItem();
-                i.Image = command.HasImage ? Image.FromFile($"Icons/png/{command.Command}.png") : null;
-                i.Text = command.Text;
-                i.Click += (sender, e) => MpcCommand(command.Command);
-                m.Items.Add(i);
-            }
+            AddCommands(m.Items, commands);
 
-            var status = new ToolStripMenuItem();
-            status.Text = "Status";
+            var status = new MenuItem("Status").ToToolStripMenuItem();
             status.Click += (sender, e) => ShowStatus();
             m.Items.Add(status);
 
-            var exit = new ToolStripMenuItem();
-            exit.Text = "Exit";
+            var exit = new MenuItem("Exit").ToToolStripMenuItem();
             exit.Click += (sender, e) => Exit();
             m.Items.Add(exit);
 
             return m;
+        }
+
+        private void AddCommands(ToolStripItemCollection items, List<MenuItem> commands)
+        {
+            foreach(var command in commands)
+            {
+                var i = command.ToToolStripMenuItem();
+                i.Click += (sender, e) => MpcCommand(command.Command);
+                items.Add(i);
+            }
         }
 
         private void MpcCommand(Command cmd)
@@ -90,15 +104,15 @@ namespace WinMpcTrayIcon
             _mpc.Cmd(cmd);
         }
 
-        private void ShowStatusOnClick(object sender, MouseEventArgs e)
-        {
-            if (e.Button == MouseButtons.Middle)
-                ShowStatus();
-        }
-
         private void ShowStatus()
         {
             _tray.ShowBalloonTip(8000, "mpc status", _mpc.GetInfo(), ToolTipIcon.Info);
+        }
+
+        private void OnClick(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Middle)
+                ShowStatus();
         }
 
         private void Exit()

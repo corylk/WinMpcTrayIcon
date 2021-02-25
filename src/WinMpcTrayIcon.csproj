@@ -6,6 +6,7 @@
     <UseWPF>true</UseWPF>
     <UseWindowsForms>true</UseWindowsForms>
     <RootNamespace>WinMpcTrayIcon</RootNamespace>
+    <StartupObject>WinMpcTrayIcon.Program</StartupObject>
     <GenerateResourceUsePreserializedResources>true</GenerateResourceUsePreserializedResources>
     <PublishSingleFile>true</PublishSingleFile>
     <SelfContained>true</SelfContained>
@@ -21,8 +22,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile DependentUpon="%(Filename)" SubType="Code" Update="**\obj\**\*.g$(DefaultLanguageSourceExtension)" />
-    <Compile DependentUpon="%(Filename)" SubType="Designer" Update="**\*.xaml$(DefaultLanguageSourceExtension)" />
+    <Content Include="Icons\*\*.*">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
 
   <ItemGroup>
@@ -32,6 +34,11 @@
     <Resource Include="Icons\png\stop.png" />
     <Resource Include="Icons\png\next.png" />
     <Resource Include="Icons\png\prev.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile DependentUpon="%(Filename)" SubType="Code" Update="**\obj\**\*.g$(DefaultLanguageSourceExtension)" />
+    <Compile DependentUpon="%(Filename)" SubType="Designer" Update="**\*.xaml$(DefaultLanguageSourceExtension)" />
   </ItemGroup>
 
   <ItemGroup>

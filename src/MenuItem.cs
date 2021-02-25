@@ -1,6 +1,4 @@
-﻿using System;
-using System.Drawing;
-using WinMpcTrayIcon.Mpc;
+﻿using WinMpcTrayIcon.Mpc;
 
 namespace WinMpcTrayIcon
 {
@@ -12,10 +10,10 @@ namespace WinMpcTrayIcon
 
         public bool HasImage { get; set; }
 
-        public MenuItem(string text, Command command, bool hasImage)
+        public MenuItem(string text, Command? command = null, bool hasImage = false)
         {
             Text = text;
-            Command = command;
+            Command = command ?? Command.status;
             HasImage = hasImage;
         }
     }
