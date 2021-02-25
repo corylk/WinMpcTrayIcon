@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
 using WinMpcTrayIcon.Mpc;
@@ -15,6 +16,8 @@ namespace WinMpcTrayIcon
 
         public AppContext()
         {
+            Application.ApplicationExit += this.ApplicationExitHandler;
+
             _mpc = new MpcClient();
             _menu = BuildMenu();
 
@@ -30,13 +33,19 @@ namespace WinMpcTrayIcon
             _tray.MouseClick += new MouseEventHandler(ShowStatusOnClick);
         }
 
-        protected override void Dispose(bool disposing)
+        protected virtual void OnApplicationExit(EventArgs e)
         {
-            if( disposing )
+        }
+
+        private void ApplicationExitHandler(object sender, EventArgs e)
+        {
+            if (_tray != null)
             {
-                this._tray.Dispose();
+                _tray.Visible = false;
+                _tray.Dispose();
             }
-            base.Dispose( disposing );
+
+            this.OnApplicationExit(e);
         }
 
         private ContextMenuStrip BuildMenu()
