@@ -18,11 +18,12 @@ namespace WinMpcTrayIcon
             Application.ApplicationExit += this.ApplicationExitHandler;
 
             _mpc = new MpcClient();
+            _mpc.Cmd(Command.status, out Status status);
 
             _tray = new NotifyIcon
             {
                 Text = GetType().Namespace,
-                Icon = GetIcon(_mpc.GetStatus()),
+                Icon = GetIcon(status),
                 ContextMenuStrip = GetContextMenu(),
                 Visible = true
             };
@@ -92,9 +93,14 @@ namespace WinMpcTrayIcon
                 _tray.Icon = GetIcon((Status)cmd);
 
             if (cmd == Command.toggle)
-                _tray.Icon = GetIcon(_mpc.GetStatus(Command.toggle));
+            {
+                _mpc.Cmd(Command.toggle, out Status status);
+                _tray.Icon = GetIcon(status);
+            }
             else
+            {
                 _mpc.Cmd(cmd);
+            }
         }
 
         private void MpcToggle(Command cmd)
@@ -105,7 +111,8 @@ namespace WinMpcTrayIcon
 
         private void ShowStatus(object sender, EventArgs e)
         {
-            _tray.ShowBalloonTip(8000, "mpc status", _mpc.GetInfo(), ToolTipIcon.None);
+            _mpc.Cmd(Command.status, out string info);
+            _tray.ShowBalloonTip(8000, "mpc status", info, ToolTipIcon.None);
         }
 
         private void OnClick(object sender, MouseEventArgs e)
