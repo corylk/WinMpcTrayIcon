@@ -37,10 +37,14 @@ namespace WinMpcTrayIcon.Mpc
         public void Cmd(Command cmd, out Status status)
         {
             Cmd(cmd, out string q);
-            var statusStr = q?.Split("[")[1]?.Split("]")[0];
 
-            if (Enum.TryParse(statusStr, out status))
-                return;
+            if (q.Contains("[") && q.Contains("]"))
+            {
+                var statusStr = q?.Split("[")[1]?.Split("]")[0];
+
+                if (Enum.TryParse(statusStr, out status))
+                    return;
+            }
 
             status = Status.stopped;
         }
@@ -48,13 +52,18 @@ namespace WinMpcTrayIcon.Mpc
         public MpcInfo GetToggles()
         {
             Cmd(Command.status, out string q);
-            var info = new MpcInfo
+            var info = new MpcInfo();
+
+            if (q.Contains("repeat: ") &&
+                q.Contains("random: ") &&
+                q.Contains("single: ") &&
+                q.Contains("consume: "))
             {
-                Repeat = q?.Split("repeat: ")[1]?.Split(" ")[0] == "on",
-                Random = q?.Split("random: ")[1]?.Split(" ")[0] == "on",
-                Single = q?.Split("single: ")[1]?.Split(" ")[0] == "on",
-                Consume = q?.Split("consume: ")[1].TrimEnd() == "on"
-            };
+                info.Repeat = q?.Split("repeat: ")[1]?.Split(" ")[0] == "on";
+                info.Random = q?.Split("random: ")[1]?.Split(" ")[0] == "on";
+                info.Single = q?.Split("single: ")[1]?.Split(" ")[0] == "on";
+                info.Consume = q?.Split("consume: ")[1].TrimEnd() == "on";
+            }
 
             return info;
         }
