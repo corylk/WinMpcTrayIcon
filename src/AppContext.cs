@@ -53,22 +53,22 @@ namespace WinMpcTrayIcon
 
             var commands = new List<MenuItem>()
             {
-                new GroupMenuItem("Playback", new List<MenuItem>()
+                new MenuItem("Playback", new List<MenuItem>()
                 {
-                    new MpcMenuItem("Repeat", (sender, e) => MpcToggle(Command.repeat), switches.Repeat),
-                    new MpcMenuItem("Random", (sender, e) => MpcToggle(Command.random), switches.Random),
-                    new MpcMenuItem("Single", (sender, e) => MpcToggle(Command.single), switches.Single),
-                    new MpcMenuItem("Consume", (sender, e) => MpcToggle(Command.consume), switches.Consume),
+                    new MenuItem("Repeat", (sender, e) => MpcToggle(Command.repeat), switches.Repeat),
+                    new MenuItem("Random", (sender, e) => MpcToggle(Command.random), switches.Random),
+                    new MenuItem("Single", (sender, e) => MpcToggle(Command.single), switches.Single),
+                    new MenuItem("Consume", (sender, e) => MpcToggle(Command.consume), switches.Consume),
                 }),
-                new MpcMenuItem("Update", (sender, e) => MpcCommand(Command.update)),
-                new MpcMenuItem("Clear", (sender, e) => MpcCommand(Command.clear)),
-                new MpcMenuItem("Stop", (sender, e) => MpcCommand(Command.stop), Command.stop),
-                new MpcMenuItem("Pause", (sender, e) => MpcCommand(Command.pause), Command.pause),
-                new MpcMenuItem("Play", (sender, e) => MpcCommand(Command.play), Command.play),
-                new MpcMenuItem("Next ", (sender, e) => MpcCommand(Command.next), Command.next),
-                new MpcMenuItem("Previous", (sender, e) => MpcCommand(Command.prev), Command.prev),
-                new SysMenuItem("Status", new EventHandler(ShowStatus)),
-                new SysMenuItem("Exit", new EventHandler(Exit))
+                new MenuItem("Update", (sender, e) => MpcCommand(Command.update)),
+                new MenuItem("Clear", (sender, e) => MpcCommand(Command.clear)),
+                new MenuItem("Stop", (sender, e) => MpcCommand(Command.stop), Command.stop),
+                new MenuItem("Pause", (sender, e) => MpcCommand(Command.pause), Command.pause),
+                new MenuItem("Play", (sender, e) => MpcCommand(Command.play), Command.play),
+                new MenuItem("Next ", (sender, e) => MpcCommand(Command.next), Command.next),
+                new MenuItem("Previous", (sender, e) => MpcCommand(Command.prev), Command.prev),
+                new MenuItem("Status", new EventHandler(ShowStatus)),
+                new MenuItem("Exit", new EventHandler(Exit))
             };
 
             return commands;

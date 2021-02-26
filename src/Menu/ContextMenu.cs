@@ -29,10 +29,10 @@ namespace WinMpcTrayIcon.Menu
             {
                 ToolStripMenuItem i = command.ToToolStripMenuItem();;
 
-                if (command.GetType() == typeof(GroupMenuItem))
-                    Build(i.DropDownItems, ((GroupMenuItem)command).Items);
+                if (command.Items != null && command.Items.Count > 0)
+                    Build(i.DropDownItems, command.Items);
                 else
-                    i.Click += ((SysMenuItem)command).EventHandler;
+                    i.Click += command.EventHandler;
 
                 items.Add(i);
             }

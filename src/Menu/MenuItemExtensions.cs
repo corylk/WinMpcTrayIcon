@@ -9,9 +9,7 @@ namespace WinMpcTrayIcon.Menu
         {
             var i = new ToolStripMenuItem();
             i.Text = command.Text;
-
-            if (command.GetType() == typeof(MpcMenuItem))
-                i.Image = ((MpcMenuItem)command).Image != null ? Image.FromFile(((MpcMenuItem)command).Image) : null;
+            i.Image = command.Image != null ? Image.FromFile(command.Image) : null;
 
             return i;
         }
