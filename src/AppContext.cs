@@ -92,7 +92,7 @@ namespace WinMpcTrayIcon
             if (cmd == Command.play ||
                 cmd == Command.pause ||
                 cmd == Command.stop)
-                _tray.Icon = GetIcon((Status)cmd);
+                _tray.Icon = GetIcon((Status)cmd); // show balloontip every time
 
             if (cmd == Command.toggle)
             {
@@ -111,7 +111,7 @@ namespace WinMpcTrayIcon
                 _tray.ContextMenuStrip = GetContextMenu(); //get status from output like above
         }
 
-        private void ShowStatus(object sender, EventArgs e)
+        private void ShowStatus(object sender, EventArgs e) // call this info
         {
             _mpc.Cmd(Command.status, out string info);
             _tray.ShowBalloonTip(8000, "mpc status", info, ToolTipIcon.None);
