@@ -55,10 +55,10 @@ namespace WinMpcTrayIcon
             {
                 new MenuItem("Playback", new List<MenuItem>()
                 {
-                    new MenuItem("Repeat", (sender, e) => MpcToggle(Command.repeat), switches.Repeat),
-                    new MenuItem("Random", (sender, e) => MpcToggle(Command.random), switches.Random),
-                    new MenuItem("Single", (sender, e) => MpcToggle(Command.single), switches.Single),
-                    new MenuItem("Consume", (sender, e) => MpcToggle(Command.consume), switches.Consume),
+                    new MenuItem("Repeat", (sender, e) => MpcCommand(Command.repeat), switches.Repeat),
+                    new MenuItem("Random", (sender, e) => MpcCommand(Command.random), switches.Random),
+                    new MenuItem("Single", (sender, e) => MpcCommand(Command.single), switches.Single),
+                    new MenuItem("Consume", (sender, e) => MpcCommand(Command.consume), switches.Consume),
                 }),
                 new MenuItem("Update", (sender, e) => MpcCommand(Command.update)),
                 new MenuItem("Clear", (sender, e) => MpcCommand(Command.clear)),
@@ -87,9 +87,11 @@ namespace WinMpcTrayIcon
             return new Icon(GetType(), $"Icons.ico.{(Command)action}.ico");
         }
 
-        private void MpcCommand(Command cmd)
+        private void MpcCommand(Command cmd) // organize this method better
         {
-            if (cmd == Command.play || cmd == Command.pause || cmd == Command.stop)
+            if (cmd == Command.play ||
+                cmd == Command.pause ||
+                cmd == Command.stop)
                 _tray.Icon = GetIcon((Status)cmd);
 
             if (cmd == Command.toggle)
@@ -101,12 +103,12 @@ namespace WinMpcTrayIcon
             {
                 _mpc.Cmd(cmd);
             }
-        }
 
-        private void MpcToggle(Command cmd)
-        {
-            _mpc.Cmd(cmd);
-            _tray.ContextMenuStrip = GetContextMenu();
+            if (cmd == Command.repeat ||
+                cmd == Command.random ||
+                cmd == Command.single ||
+                cmd == Command.consume)
+                _tray.ContextMenuStrip = GetContextMenu(); //get status from output like above
         }
 
         private void ShowStatus(object sender, EventArgs e)
