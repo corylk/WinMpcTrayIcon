@@ -14,6 +14,9 @@
         repeat,
         random,
         single,
-        consume
+        consume,
+        outputs,
+        search,
+        add
     }
 }

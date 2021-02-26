@@ -12,6 +12,8 @@ namespace WinMpcTrayIcon
 
         private readonly NotifyIcon _tray;
 
+        private SearchForm _form;
+
         public AppContext()
         {
             Application.ApplicationExit += this.ApplicationExitHandler;
@@ -52,13 +54,15 @@ namespace WinMpcTrayIcon
 
             var menuItems = new List<MenuItem>()
             {
-                new MenuItem("Playback", new List<MenuItem>()
+                new MenuItem("Outputs", GetOutputs()),
+                new MenuItem("Playmodes", new List<MenuItem>()
                 {
                     new MenuItem("Repeat", (sender, e) => MpcCommand(Command.repeat), playModeStatus.Repeat),
                     new MenuItem("Random", (sender, e) => MpcCommand(Command.random), playModeStatus.Random),
                     new MenuItem("Single", (sender, e) => MpcCommand(Command.single), playModeStatus.Single),
                     new MenuItem("Consume", (sender, e) => MpcCommand(Command.consume), playModeStatus.Consume),
                 }),
+                new MenuItem("Search", new EventHandler(Search)),
                 new MenuItem("Update", (sender, e) => MpcCommand(Command.update)),
                 new MenuItem("Clear", (sender, e) => MpcCommand(Command.clear)),
                 new MenuItem("Stop", (sender, e) => MpcCommand(Command.stop), Command.stop),
@@ -73,6 +77,13 @@ namespace WinMpcTrayIcon
             return menuItems;
         }
 
+        private List<MenuItem> GetOutputs()
+        {
+            var outputs = new List<MenuItem>();
+            _mpc.Cmd(Command.outputs, out string info); // we will need a method on MpcClient to parse and return the outputs
+            return outputs;
+        }
+
         private ContextMenuStrip GetContextMenu()
         {
             var menuItems = GetMenuItems();
@@ -84,6 +95,12 @@ namespace WinMpcTrayIcon
             _mpc.Cmd(cmd, out Status status);
             _tray.Icon = status.GetIcon();
             _tray.ContextMenuStrip = GetContextMenu();
+        }
+
+        private void Search(object sender, EventArgs e)
+        {
+            _form = new SearchForm();
+            _form.Show();
         }
 
         private void ShowInfo(object sender, EventArgs e)
