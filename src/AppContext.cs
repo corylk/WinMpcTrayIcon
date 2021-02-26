@@ -52,7 +52,7 @@ namespace WinMpcTrayIcon
 
             var menuItems = new List<MenuItem>()
             {
-                new MenuItem("Outputs", GetOutputs()),
+                // new MenuItem("Outputs", GetOutputs()),
                 new MenuItem("Playmodes", new List<MenuItem>()
                 {
                     new MenuItem("Repeat", (sender, e) => MpcCommand(Command.repeat), playModeStatus.Repeat),
