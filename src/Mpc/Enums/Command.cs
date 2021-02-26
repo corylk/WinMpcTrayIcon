@@ -10,10 +10,16 @@
         prev,
         status,
         clear,
+        crop,
         update,
         repeat,
         random,
         single,
-        consume
+        consume,
+        outputs,
+        search,
+        playlist,
+        add,
+        insert
     }
 }

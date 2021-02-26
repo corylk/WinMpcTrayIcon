@@ -16,14 +16,14 @@ namespace WinMpcTrayIcon.Mpc
                 .AddJsonFile("appsettings.json").Build().Get<MpcConfig>();
         }
 
-        public void Cmd(Command cmd)
+        public void Cmd(Command cmd, string args = null)
         {
-            GetProc(cmd).Start();
+            GetProc(cmd, args).Start();
         }
 
-        public void Cmd(Command cmd, out string outPut)
+        public void Cmd(Command cmd, out string outPut, string args = null)
         {
-            var p = GetProc(cmd);
+            var p = GetProc(cmd, args);
             p.Start();
             string q = "";
 
@@ -34,9 +34,9 @@ namespace WinMpcTrayIcon.Mpc
             outPut = q.TrimEnd('\r', '\n');;
         }
 
-        public void Cmd(Command cmd, out Status status)
+        public void Cmd(Command cmd, out Status status, string args = null)
         {
-            Cmd(cmd, out string q);
+            Cmd(cmd, out string q, args);
 
             if (q.Contains("[") && q.Contains("]"))
             {
@@ -68,17 +68,20 @@ namespace WinMpcTrayIcon.Mpc
             return info;
         }
 
-        private Process GetProc(Command cmd)
+        private Process GetProc(Command cmd, string args = null)
         {
-            var args = new StringBuilder();
-            args.Append(GetArg("h", _config.MpdIp));
-            args.Append(GetArg("p", _config.MpdPort));
-            args.Append(GetArg("P", _config.MpdPassword));
-            args.Append(cmd.ToString());
+            var command = new StringBuilder();
+            command.Append(GetArg("h", _config.MpdIp));
+            command.Append(GetArg("p", _config.MpdPort));
+            command.Append(GetArg("P", _config.MpdPassword));
+            command.Append(cmd.ToString());
+
+            if (args != null)
+                 command.Append(' ').Append(args);
 
             var p = new Process
             {
-                StartInfo = new ProcessStartInfo(_config.MpcPath, args.ToString())
+                StartInfo = new ProcessStartInfo(_config.MpcPath, command.ToString())
                 {
                     RedirectStandardOutput = true,
                     UseShellExecute = false,
