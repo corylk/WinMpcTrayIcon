@@ -39,3 +39,7 @@ Run it like a console app with `dotnet` (from executable) or `dotnet run` (from 
 ### Configuration
 
 The default configuration expects an mpd instance on localhost and mpc to be added to the system's PATH environment variable. Alternatively, build with your own configuration in `appsettings.json`.
+
+## Known issues
+
+* Icons do not update automatically when playing stops on it's own or when MPD is controlled via other clients.
