@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Drawing;
 using System.Windows.Forms;
 using WinMpcTrayIcon.Menu;
 using WinMpcTrayIcon.Mpc;
@@ -23,7 +22,7 @@ namespace WinMpcTrayIcon
             _tray = new NotifyIcon
             {
                 Text = GetType().Namespace,
-                Icon = GetIcon(status),
+                Icon = status.GetIcon(),
                 ContextMenuStrip = GetContextMenu(),
                 Visible = true
             };
@@ -49,16 +48,16 @@ namespace WinMpcTrayIcon
 
         private List<MenuItem> GetMenuItems()
         {
-            var switches = _mpc.GetToggles();
+            var playModeStatus = _mpc.GetPlaymodeStatus();
 
-            var commands = new List<MenuItem>()
+            var menuItems = new List<MenuItem>()
             {
                 new MenuItem("Playback", new List<MenuItem>()
                 {
-                    new MenuItem("Repeat", (sender, e) => MpcCommand(Command.repeat), switches.Repeat),
-                    new MenuItem("Random", (sender, e) => MpcCommand(Command.random), switches.Random),
-                    new MenuItem("Single", (sender, e) => MpcCommand(Command.single), switches.Single),
-                    new MenuItem("Consume", (sender, e) => MpcCommand(Command.consume), switches.Consume),
+                    new MenuItem("Repeat", (sender, e) => MpcCommand(Command.repeat), playModeStatus.Repeat),
+                    new MenuItem("Random", (sender, e) => MpcCommand(Command.random), playModeStatus.Random),
+                    new MenuItem("Single", (sender, e) => MpcCommand(Command.single), playModeStatus.Single),
+                    new MenuItem("Consume", (sender, e) => MpcCommand(Command.consume), playModeStatus.Consume),
                 }),
                 new MenuItem("Update", (sender, e) => MpcCommand(Command.update)),
                 new MenuItem("Clear", (sender, e) => MpcCommand(Command.clear)),
@@ -67,11 +66,11 @@ namespace WinMpcTrayIcon
                 new MenuItem("Play", (sender, e) => MpcCommand(Command.play), Command.play),
                 new MenuItem("Next ", (sender, e) => MpcCommand(Command.next), Command.next),
                 new MenuItem("Previous", (sender, e) => MpcCommand(Command.prev), Command.prev),
-                new MenuItem("Status", new EventHandler(ShowStatus)),
+                new MenuItem("Status", new EventHandler(ShowInfo)),
                 new MenuItem("Exit", new EventHandler(Exit))
             };
 
-            return commands;
+            return menuItems;
         }
 
         private ContextMenuStrip GetContextMenu()
@@ -80,38 +79,14 @@ namespace WinMpcTrayIcon
             return new ContextMenu(menuItems).ToContextMenuStrip();
         }
 
-        private Icon GetIcon(Status status)
+        private void MpcCommand(Command cmd)
         {
-            int action = Math.Min(2, 3 - (int)status);
-
-            return new Icon(GetType(), $"Icons.ico.{(Command)action}.ico");
+            _mpc.Cmd(cmd, out Status status);
+            _tray.Icon = status.GetIcon();
+            _tray.ContextMenuStrip = GetContextMenu();
         }
 
-        private void MpcCommand(Command cmd) // organize this method better
-        {
-            if (cmd == Command.play ||
-                cmd == Command.pause ||
-                cmd == Command.stop)
-                _tray.Icon = GetIcon((Status)cmd); // show balloontip every time
-
-            if (cmd == Command.toggle)
-            {
-                _mpc.Cmd(Command.toggle, out Status status);
-                _tray.Icon = GetIcon(status);
-            }
-            else
-            {
-                _mpc.Cmd(cmd);
-            }
-
-            if (cmd == Command.repeat ||
-                cmd == Command.random ||
-                cmd == Command.single ||
-                cmd == Command.consume)
-                _tray.ContextMenuStrip = GetContextMenu(); //get status from output like above
-        }
-
-        private void ShowStatus(object sender, EventArgs e) // call this info
+        private void ShowInfo(object sender, EventArgs e)
         {
             _mpc.Cmd(Command.status, out string info);
             _tray.ShowBalloonTip(8000, "mpc status", info, ToolTipIcon.None);
@@ -120,7 +95,7 @@ namespace WinMpcTrayIcon
         private void OnClick(object sender, MouseEventArgs e)
         {
             if (e.Button == MouseButtons.Middle)
-                ShowStatus(sender, e);
+                ShowInfo(sender, e);
         }
 
         private void Exit(object sender, EventArgs e)

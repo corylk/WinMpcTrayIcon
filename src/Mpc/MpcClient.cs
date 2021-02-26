@@ -49,7 +49,7 @@ namespace WinMpcTrayIcon.Mpc
             status = Status.stopped;
         }
 
-        public MpcInfo GetToggles()
+        public MpcInfo GetPlaymodeStatus()
         {
             Cmd(Command.status, out string q);
             var info = new MpcInfo();
