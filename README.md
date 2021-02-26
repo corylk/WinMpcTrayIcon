@@ -3,11 +3,13 @@
 ## Description
 Control Music Player Daemon from the system tray!
 
-WinMpcTrayIcon is a simple Windows system tray icon wrapper for mpc.
+WinMpcTrayIcon is a simple Windows system tray icon wrapper for mpc. It does not independently implement the MPD protocol, but instead sends commands to mpc and parses output as necessary.
 
 ### Usage
 
-Middle-click for a status balloon, double-click to toggle play/pause, and right-click for a context menu of additional actions. Supported mpc commands are:
+Middle-click for a status balloon, double-click to toggle play/pause, and right-click for a context menu of additional actions. 
+
+Supported mpc commands are:
 * `mpc status`
 * `mpc toggle`
 * `mpc play`
@@ -32,7 +34,7 @@ Run it like a console app with `dotnet` (from executable) or `dotnet run` (from 
 
 ### Requirements
 
-* [mpc.exe](https://www.musicpd.org/download/mpc/0/)
+* [mpc](https://www.musicpd.org/download/mpc/0/)
 
 ### Configuration
 
