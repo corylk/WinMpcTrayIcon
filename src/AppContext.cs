@@ -61,7 +61,7 @@ namespace WinMpcTrayIcon
                     new MenuItem("Consume", (sender, e) => MpcCommand(Command.consume), playModeStatus.Consume),
                 }),
                 new MenuItem("Search", new EventHandler(Search)),
-                new MenuItem("Playlist", new EventHandler(Playlist)),
+                // new MenuItem("Playlist", new EventHandler(Playlist)),
                 new MenuItem("Update", (sender, e) => MpcCommand(Command.update)),
                 new MenuItem("Clear", (sender, e) => MpcCommand(Command.clear)),
                 new MenuItem("Stop", (sender, e) => MpcCommand(Command.stop), Command.stop),
