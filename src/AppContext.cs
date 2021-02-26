@@ -12,8 +12,6 @@ namespace WinMpcTrayIcon
 
         private readonly NotifyIcon _tray;
 
-        private SearchForm _form;
-
         public AppContext()
         {
             Application.ApplicationExit += this.ApplicationExitHandler;
@@ -63,6 +61,7 @@ namespace WinMpcTrayIcon
                     new MenuItem("Consume", (sender, e) => MpcCommand(Command.consume), playModeStatus.Consume),
                 }),
                 new MenuItem("Search", new EventHandler(Search)),
+                new MenuItem("Playlist", new EventHandler(Playlist)),
                 new MenuItem("Update", (sender, e) => MpcCommand(Command.update)),
                 new MenuItem("Clear", (sender, e) => MpcCommand(Command.clear)),
                 new MenuItem("Stop", (sender, e) => MpcCommand(Command.stop), Command.stop),
@@ -99,8 +98,14 @@ namespace WinMpcTrayIcon
 
         private void Search(object sender, EventArgs e)
         {
-            _form = new SearchForm();
-            _form.Show();
+            var form = new SearchForm();
+            form.Show();
+        }
+
+        private void Playlist(object sender, EventArgs e)
+        {
+            var form = new PlaylistForm();
+            form.Show();
         }
 
         private void ShowInfo(object sender, EventArgs e)
