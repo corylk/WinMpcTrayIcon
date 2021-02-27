@@ -9,7 +9,7 @@ WinMpcTrayIcon is a simple Windows system tray icon wrapper for mpc. It does not
 
 Middle-click for a status balloon, double-click to toggle play/pause, and right-click for a context menu of additional actions. 
 
-Supported mpc commands are:
+mpc commands supported via the GUI are:
 * `mpc status`
 * `mpc search`
 * `mpc playlist`
