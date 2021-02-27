@@ -35,7 +35,7 @@ Refer to the mpc manual for guidance on search syntax.
 
 ## Setup
 
-Publish an exe with `dotnet publish -c Release -r win10-x64 -p:PublishSingleFile=true`. Or else run it like a console app with `dotnet` (from executable) or `dotnet run` (from source).
+Publish an exe with `dotnet publish -c Release -r win10-x64 -p:PublishSingleFile=true`. Otherwise you can run with `dotnet` (from dll) or `dotnet run` (from source).
 
 ### Requirements
 
