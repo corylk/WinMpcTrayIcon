@@ -36,6 +36,8 @@ Supported mpc commands are:
 
 Run it like a console app with `dotnet` (from executable) or `dotnet run` (from source).
 
+Publish with `dotnet publish -c Release -r win10-x64 -p:PublishSingleFile=true`.
+
 ### Requirements
 
 * [mpc](https://www.musicpd.org/download/mpc/0/)
