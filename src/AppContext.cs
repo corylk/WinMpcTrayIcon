@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading;
 using System.Windows.Forms;
 using WinMpcTrayIcon.Menu;
 using WinMpcTrayIcon.Mpc;
@@ -29,6 +30,9 @@ namespace WinMpcTrayIcon
 
             _tray.MouseDoubleClick += (sender, e) => MpcCommand(Command.toggle);
             _tray.MouseClick += (sender, e) => OnClick(sender, e);
+
+            var refresh = new Thread(BackgroundRefresh);
+            refresh.Start();
         }
 
         protected virtual void OnApplicationExit(EventArgs e)
@@ -89,17 +93,10 @@ namespace WinMpcTrayIcon
             return outputs;
         }
 
-        private ContextMenuStrip GetContextMenu()
-        {
-            var menuItems = GetMenuItems();
-            return new ContextMenu(menuItems).ToContextMenuStrip();
-        }
-
         private void MpcCommand(Command cmd)
         {
             _mpc.Cmd(cmd, out Status status);
-            _tray.Icon = status.GetIcon();
-            _tray.ContextMenuStrip = GetContextMenu();
+            RefreshContext(status);
         }
 
         private void Search(object sender, EventArgs e)
@@ -120,10 +117,36 @@ namespace WinMpcTrayIcon
             _tray.ShowBalloonTip(8000, "mpc status", info, ToolTipIcon.None);
         }
 
+        private void RefreshContext(Status? status = null)
+        {
+            Status currStatus;
+            if (status == null)
+                _mpc.Cmd(Command.status, out currStatus);
+            else
+                currStatus = (Status)status;
+
+            _tray.Icon = currStatus.GetIcon();
+            _tray.ContextMenuStrip = GetContextMenu();
+        }
+
+        private void BackgroundRefresh()
+        {
+            while (true) {
+                Thread.Sleep(10000);
+                RefreshContext();
+            }
+        }
+
         private void OnClick(object sender, MouseEventArgs e)
         {
             if (e.Button == MouseButtons.Middle)
                 ShowInfo(sender, e);
+        }
+
+        private ContextMenuStrip GetContextMenu()
+        {
+            var menuItems = GetMenuItems();
+            return new ContextMenu(menuItems).ToContextMenuStrip();
         }
 
         private void Exit(object sender, EventArgs e)
