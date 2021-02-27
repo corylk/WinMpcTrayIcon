@@ -14,14 +14,19 @@ WinMpcTrayIcon is a simple, lightweight Windows system tray icon wrapper for [mp
 
 ### Usage
 
-Middle-click for a status balloon, double-click to toggle play/pause, and right-click for a context menu of additional actions. 
+Middle-click for a status notification, double-click to toggle play/pause, and right-click for a context menu of additional actions. 
 
-mpc commands supported via the GUI in one way or another are:
-`status`, `search`, `add`, `playlist`, `toggle`, `play`, `pause`, `stop`, `next`, `prev`, `clear`, `crop`, `update`, `repeat`, `random`, `single`, `consume`
+mpc commands supported via the GUI in one way or another are: `status`, `search`, `add`, `playlist`, `toggle`, `play`, `pause`, `stop`, `next`, `prev`, `clear`, `crop`, `update`, `repeat`, `random`, `single`, `consume`
 
 ### Screenshots
-![Context menu](https://github.com/clkmsc/WinMpcTrayIcon/blob/master/images/2.png?raw=true)
+
+#### Status notification
 ![Status tooltip](https://github.com/clkmsc/WinMpcTrayIcon/blob/master/images/1.png?raw=true)
+
+#### Context menu
+![Context menu](https://github.com/clkmsc/WinMpcTrayIcon/blob/master/images/2.png?raw=true)
+
+#### Search window
 ![Search](https://github.com/clkmsc/WinMpcTrayIcon/blob/master/images/3.png?raw=true)
 
 ## Setup
