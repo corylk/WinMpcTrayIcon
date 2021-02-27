@@ -49,4 +49,3 @@ The default configuration expects an mpd instance on localhost and mpc to be add
 ## Known issues
 
 * Icons do not update automatically when playing stops on it's own or when MPD is controlled via other clients.
-* Icon changes when toggling play/pause even if the status doesn't change.
