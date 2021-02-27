@@ -12,13 +12,15 @@ WinMpcTrayIcon is a simple, lightweight Windows system tray icon wrapper for [mp
 * Database update and search
 * Basic queue management (e.g. clear / add)
 
-mpc commands supported via the GUI in one way or another are: `status`, `search`, `add`, `playlist`, `toggle`, `play`, `pause`, `stop`, `next`, `prev`, `clear`, `crop`, `update`, `repeat`, `random`, `single`, `consume`
+mpc commands supported via the GUI in one way or another are: `status`, `search`, `add`, `playlist`, `toggle`, `play`, `pause`, `stop`, `next`, `prev`, `clear`, `crop`, `update`, `repeat`, `random`, `single`, `consume`.
 
 ### Usage
 
 * Middle-click for a status notification
 * Double-click to toggle play/pause
 * Right-click for a context menu of additional actions
+
+Refer to the mpc manual for guidance on search syntax.
 
 ### Screenshots
 
