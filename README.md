@@ -3,44 +3,43 @@
 ## Description
 Control Music Player Daemon from the system tray!
 
-WinMpcTrayIcon is a simple, lightweight Windows system tray icon wrapper for mpc. It does not independently implement the MPD protocol, but instead relays input and output to/from the mpc CLI.
+WinMpcTrayIcon is a simple, lightweight Windows system tray icon wrapper for [mpc](https://musicpd.org/doc/mpc/html/). It does not independently implement the MPD protocol, but instead relays input and output to/from the mpc CLI.
+
+### Features
+
+* Playback controls
+* Toggles for various play modes (e.g. repeat / consume)
+* Database update and search
+* Basic queue management (e.g. clear / add)
+
+mpc commands supported via the GUI in one way or another are: `status`, `search`, `add`, `playlist`, `toggle`, `play`, `pause`, `stop`, `next`, `prev`, `clear`, `crop`, `update`, `repeat`, `random`, `single`, `consume`.
 
 ### Usage
 
-Middle-click for a status balloon, double-click to toggle play/pause, and right-click for a context menu of additional actions. 
+* Middle-click for a status notification
+* Double-click to toggle play/pause
+* Right-click for a context menu of additional actions
 
-mpc commands supported via the GUI are:
-* `mpc status`
-* `mpc search`
-* `mpc playlist`
-* `mpc toggle`
-* `mpc play`
-* `mpc pause`
-* `mpc stop`
-* `mpc next`
-* `mpc prev`
-* `mpc clear`
-* `mpc crop`
-* `mpc update`
-* `mpc repeat`
-* `mpc random`
-* `mpc single`
-* `mpc consume`
+Refer to the mpc manual for guidance on search syntax.
 
 ### Screenshots
-![Context menu](https://github.com/clkmsc/WinMpcTrayIcon/blob/master/images/2.png?raw=true)
+
+#### Status notification
 ![Status tooltip](https://github.com/clkmsc/WinMpcTrayIcon/blob/master/images/1.png?raw=true)
+
+#### Context menu
+![Context menu](https://github.com/clkmsc/WinMpcTrayIcon/blob/master/images/2.png?raw=true)
+
+#### Search window
 ![Search](https://github.com/clkmsc/WinMpcTrayIcon/blob/master/images/3.png?raw=true)
 
 ## Setup
 
-Run it like a console app with `dotnet` (from executable) or `dotnet run` (from source).
-
-Publish an exe with `dotnet publish -c Release -r win10-x64 -p:PublishSingleFile=true`.
+Publish an exe with `dotnet publish -c Release -r win10-x64 -p:PublishSingleFile=true`. Otherwise you can run with `dotnet` (from dll) or `dotnet run` (from source).
 
 ### Requirements
 
-* [mpc](https://www.musicpd.org/download/mpc/0/)
+* [mpc](https://www.musicpd.org/download/mpc/0/) - the application will run but not function without it.
 
 ### Configuration
 
