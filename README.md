@@ -12,6 +12,7 @@ Middle-click for a status balloon, double-click to toggle play/pause, and right-
 mpc commands supported via the GUI are:
 * `mpc status`
 * `mpc search`
+* `mpc add`
 * `mpc playlist`
 * `mpc toggle`
 * `mpc play`
