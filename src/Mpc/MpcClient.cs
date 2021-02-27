@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Diagnostics;
-using System.Linq;
 using System.Text;
 using Microsoft.Extensions.Configuration;
 
@@ -53,39 +52,14 @@ namespace WinMpcTrayIcon.Mpc
         public void Cmd(Command cmd, out MpcInfo info, string args = null)
         {
             Cmd(cmd, out string q, args);
-            info = new MpcInfo();
-
-            if (q.Contains("\r\n"))
-            {
-                var infoArr = q.Split("\r\n").ToList();
-
-                if (infoArr.Count > 1 && infoArr[1].Contains("["))
-                {
-                    info.Track = infoArr[0]; // do more validation on these
-                    info.Status = infoArr[1];
-                    info.Playmodes = infoArr[2];
-                }
-                else
-                {
-                    info.Playmodes = infoArr[0];
-                }
-            }
-
-            info.Playmodes = q;
+            info = new MpcInfo(q);
         }
 
         public MpcPlaymodes GetPlaymodeStatus()
         {
             Cmd(Command.status, out MpcInfo q);
-            var info = new MpcPlaymodes
-            {
-                Repeat = q.Playmodes?.Split("repeat: ")[1]?.Split(" ")[0] == "on",
-                Random = q.Playmodes?.Split("random: ")[1]?.Split(" ")[0] == "on",
-                Single = q.Playmodes?.Split("single: ")[1]?.Split(" ")[0] == "on",
-                Consume = q.Playmodes?.Split("consume: ")[1].TrimEnd() == "on"
-            };
 
-            return info;
+            return new MpcPlaymodes(q.Playmodes);
         }
 
         private Process GetProc(Command cmd, string args = null)
