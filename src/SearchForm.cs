@@ -33,8 +33,10 @@ namespace WinMpcTrayIcon
             _textBox.KeyUp += (sender, e) => Search(sender, e, _textBox.Text);
 
             Controls.Add(_textBox);
-            _textBox.Width = _textBox.Parent.Width - 20;
             _list.Height = _list.Parent.Height - 65;
+            _textBox.Width = _textBox.Parent.Width - 20;
+            _textBox.Focus();
+            _textBox.Select();
         }
 
         private void Add(object sender, EventArgs e)
@@ -68,7 +70,7 @@ namespace WinMpcTrayIcon
                 _mpc.Cmd(Command.add, args: $"\"{item}\"");
             }
 
-            _mpc.Cmd(Command.play); // need to update icons
+            _mpc.Cmd(Command.play); // need to refresh icons
         }
 
         private void Search(object sender, KeyEventArgs e, string query)
