@@ -19,6 +19,7 @@ mpc commands supported via the GUI in one way or another are: `status`, `search`
 * Middle-click for a status notification
 * Double-click to toggle play/pause
 * Right-click for a context menu of additional actions
+* Refer to the mpc manual for search syntax
 
 ### Screenshots
 
