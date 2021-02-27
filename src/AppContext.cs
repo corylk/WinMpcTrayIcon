@@ -113,8 +113,8 @@ namespace WinMpcTrayIcon
 
         private void ShowInfo(object sender, EventArgs e)
         {
-            _mpc.Cmd(Command.status, out string info);
-            _tray.ShowBalloonTip(8000, "mpc status", info, ToolTipIcon.None);
+            _mpc.Cmd(Command.status, out MpcInfo info);
+            _tray.ShowBalloonTip(8000, info.Track ?? "mpc status", info.Status ?? info.Playmodes, ToolTipIcon.None);
         }
 
         private void RefreshContext(Status? status = null)

@@ -2,12 +2,10 @@
 {
     public class MpcInfo
     {
-        public bool Repeat { get; set; }
+        public string Track { get; set; }
 
-        public bool Random { get; set; }
+        public string Status { get; set; }
 
-        public bool Single { get; set; }
-
-        public bool Consume { get; set; }
+        public string Playmodes { get; set; }
     }
 }
