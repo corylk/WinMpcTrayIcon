@@ -10,39 +10,38 @@ namespace WinMpcTrayIcon
     {
         protected MpcClient _mpc;
 
-        protected TextBox _textBox;
-
         protected ListBox _list;
 
         public FormBase()
         {
         }
 
-        protected void InitComponents(string title, List<MenuItem> menuItems, KeyEventHandler searchFunction)
+        protected void InitComponents(string title, List<MenuItem> menuItems)
         {
             _mpc = new MpcClient();
-
-            _textBox = new TextBox
-            {
-                Size = new Size(796, 25),
-                Location = new Point(2, 2)
-            };
-            _textBox.KeyUp += searchFunction;
+            Text = title;
+            ClientSize = new Size(800, 438);
+            Padding = new Padding(2, 2, 2, 2);
+            CenterToScreen();
 
             _list = new ListBox
             {
-                Size = new Size(796, 422),
                 Location = new Point(2, 27),
+                Margin = new Padding(2, 2, 2, 2),
                 MultiColumn = false,
                 SelectionMode = SelectionMode.MultiExtended,
-                ContextMenuStrip = new ContextMenu(menuItems).ToContextMenuStrip()
+                ContextMenuStrip = new ContextMenu(menuItems).ToContextMenuStrip(),
+                Dock = DockStyle.Fill,
+                Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right,
             };
 
-            Text = title;
-            ClientSize = new Size(800, 438);
-            CenterToScreen();
-            Controls.Add(_textBox);
             Controls.Add(_list);
+            _list.Width = _list.Parent.Width - 20;
+            _list.Height = _list.Parent.Height - 20;
+        }
+
+        protected void InitComponents()
+        {
         }
     }
 }

@@ -12,6 +12,7 @@ Middle-click for a status balloon, double-click to toggle play/pause, and right-
 Supported mpc commands are:
 * `mpc status`
 * `mpc search`
+* `mpc playlist`
 * `mpc toggle`
 * `mpc play`
 * `mpc pause`
@@ -19,6 +20,7 @@ Supported mpc commands are:
 * `mpc next`
 * `mpc prev`
 * `mpc clear`
+* `mpc crop`
 * `mpc update`
 * `mpc repeat`
 * `mpc random`
@@ -28,6 +30,7 @@ Supported mpc commands are:
 ### Screenshots
 ![Context menu](https://github.com/clkmsc/WinMpcTrayIcon/blob/master/images/2.png?raw=true)
 ![Status tooltip](https://github.com/clkmsc/WinMpcTrayIcon/blob/master/images/1.png?raw=true)
+![Search](https://github.com/clkmsc/WinMpcTrayIcon/blob/master/images/3.png?raw=true)
 
 ## Setup
 

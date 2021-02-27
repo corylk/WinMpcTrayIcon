@@ -53,17 +53,23 @@ namespace WinMpcTrayIcon
             var menuItems = new List<MenuItem>()
             {
                 // new MenuItem("Outputs", GetOutputs()),
-                new MenuItem("Playmodes", new List<MenuItem>()
+                new MenuItem("Database", new List<MenuItem>()
+                {
+                    new MenuItem("Search", new EventHandler(Search)),
+                    new MenuItem("Update", (sender, e) => MpcCommand(Command.update)),
+                }),
+                new MenuItem("Modes", new List<MenuItem>()
                 {
                     new MenuItem("Repeat", (sender, e) => MpcCommand(Command.repeat), playModeStatus.Repeat),
                     new MenuItem("Random", (sender, e) => MpcCommand(Command.random), playModeStatus.Random),
                     new MenuItem("Single", (sender, e) => MpcCommand(Command.single), playModeStatus.Single),
                     new MenuItem("Consume", (sender, e) => MpcCommand(Command.consume), playModeStatus.Consume),
                 }),
-                new MenuItem("Search", new EventHandler(Search)),
-                // new MenuItem("Playlist", new EventHandler(Playlist)),
-                new MenuItem("Update", (sender, e) => MpcCommand(Command.update)),
-                new MenuItem("Clear", (sender, e) => MpcCommand(Command.clear)),
+                new MenuItem("Playlist", new List<MenuItem>()
+                {
+                    new MenuItem("View", new EventHandler(Playlist)),
+                    new MenuItem("Clear", (sender, e) => MpcCommand(Command.clear)),
+                }),
                 new MenuItem("Stop", (sender, e) => MpcCommand(Command.stop), Command.stop),
                 new MenuItem("Pause", (sender, e) => MpcCommand(Command.pause), Command.pause),
                 new MenuItem("Play", (sender, e) => MpcCommand(Command.play), Command.play),

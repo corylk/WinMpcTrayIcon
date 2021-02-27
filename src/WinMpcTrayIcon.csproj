@@ -3,16 +3,14 @@
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
     <TargetFramework>net5.0-windows</TargetFramework>
-    <UseWPF>true</UseWPF>
     <UseWindowsForms>true</UseWindowsForms>
     <RootNamespace>WinMpcTrayIcon</RootNamespace>
-    <StartupObject>WinMpcTrayIcon.Program</StartupObject>
-    <GenerateResourceUsePreserializedResources>true</GenerateResourceUsePreserializedResources>
-    <PublishSingleFile>true</PublishSingleFile>
     <SelfContained>true</SelfContained>
+    <PublishSingleFile>true</PublishSingleFile>
+    <IncludeAllContentForSelfExtract>true</IncludeAllContentForSelfExtract>
     <RuntimeIdentifier>win10-x64</RuntimeIdentifier>
     <PublishTrimmed>true</PublishTrimmed>
-    <PublishReadyToRun>true</PublishReadyToRun>
+    <PublishReadyToRun>false</PublishReadyToRun>
     <PublishReadyToRunShowWarnings>true</PublishReadyToRunShowWarnings>
   </PropertyGroup>
 
@@ -23,23 +21,17 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="Icons\*\*.*">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-  </ItemGroup>
-
-  <ItemGroup>
-    <Resource Include="Icons\ico\pauseplay.ico" />
-    <Resource Include="Icons\ico\pause.ico" />
-    <Resource Include="Icons\ico\play.ico" />
-    <Resource Include="Icons\ico\stop.ico" />
-    <Resource Include="Icons\png\play.png" />
-    <Resource Include="Icons\png\pause.png" />
-    <Resource Include="Icons\png\stop.png" />
-    <Resource Include="Icons\png\next.png" />
-    <Resource Include="Icons\png\prev.png" />
-    <Resource Include="Icons\png\on.png" />
-    <Resource Include="Icons\png\off.png" />
+    <EmbeddedResource Include="Icons\ico\pauseplay.ico" />
+    <EmbeddedResource Include="Icons\ico\pause.ico" />
+    <EmbeddedResource Include="Icons\ico\play.ico" />
+    <EmbeddedResource Include="Icons\ico\stop.ico" />
+    <EmbeddedResource Include="Icons\png\play.png" />
+    <EmbeddedResource Include="Icons\png\pause.png" />
+    <EmbeddedResource Include="Icons\png\stop.png" />
+    <EmbeddedResource Include="Icons\png\next.png" />
+    <EmbeddedResource Include="Icons\png\prev.png" />
+    <EmbeddedResource Include="Icons\png\on.png" />
+    <EmbeddedResource Include="Icons\png\off.png" />
   </ItemGroup>
 
   <ItemGroup>

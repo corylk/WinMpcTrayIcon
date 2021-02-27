@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 using WinMpcTrayIcon.Menu;
@@ -9,6 +10,8 @@ namespace WinMpcTrayIcon
 {
     public class SearchForm : FormBase
     {
+        private readonly TextBox _textBox;
+
         public SearchForm()
         {
             InitComponents(
@@ -19,8 +22,19 @@ namespace WinMpcTrayIcon
                     new MenuItem("Play next", new EventHandler(Insert)),
                     new MenuItem("Crop and play", (sender, e) => AddAnd(Command.crop)),
                     new MenuItem("Clear and play", (sender, e) => AddAnd(Command.clear))
-                },
-                searchFunction: (sender, e) => Search(sender, e, _textBox.Text));
+                });
+
+            _textBox = new TextBox
+            {
+                Location = new Point(2, 2),
+                Margin = new Padding(2, 2, 2, 2),
+                Anchor = AnchorStyles.Top | AnchorStyles.Right |  AnchorStyles.Left
+            };
+            _textBox.KeyUp += (sender, e) => Search(sender, e, _textBox.Text);
+
+            Controls.Add(_textBox);
+            _textBox.Width = _textBox.Parent.Width - 20;
+            _list.Height = _list.Parent.Height - 65;
         }
 
         private void Add(object sender, EventArgs e)
