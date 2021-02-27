@@ -3,7 +3,7 @@
 ## Description
 Control Music Player Daemon from the system tray!
 
-WinMpcTrayIcon is a simple, lightweight Windows system tray icon wrapper for mpc. It does not independently implement the MPD protocol, but instead relays input and output to/from the mpc CLI.
+WinMpcTrayIcon is a simple, lightweight Windows system tray icon wrapper for [mpc](https://musicpd.org/doc/mpc/html/). It does not independently implement the MPD protocol, but instead relays input and output to/from the mpc CLI.
 
 ### Usage
 
