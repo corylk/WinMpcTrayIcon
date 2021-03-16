@@ -43,4 +43,4 @@ Publish an exe with `dotnet publish -c Release -r win10-x64 --self-contained fal
 
 ### Configuration
 
-The default configuration expects an mpd instance on localhost and mpc to be added to the system's PATH environment variable. Alternatively, build with your own configuration in `appsettings.json`.
+The default configuration expects an mpd instance on localhost and mpc to be added to the system's PATH environment variable. Alternatively, use your own configuration in `appsettings.json`.
