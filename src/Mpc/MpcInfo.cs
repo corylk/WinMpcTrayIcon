@@ -19,8 +19,8 @@ namespace WinMpcTrayIcon.Mpc
                 if (infoArr.Count > 1 && infoArr[1].Contains("["))
                 {
                     Track = infoArr[0]; // do more validation before assigning these?
-                    Status = infoArr[1];
-                    Playmodes = infoArr[2];
+                    Status = infoArr[1]; // such as check for [/] here
+                    Playmodes = infoArr[2]; // do we even need this string?
                 }
                 else
                 {

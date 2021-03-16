@@ -23,7 +23,7 @@ namespace WinMpcTrayIcon
             _tray = new NotifyIcon
             {
                 Text = GetType().Namespace,
-                Icon = status.GetIcon(),
+                Icon = status.GetIcon(), // investigate icon quality
                 ContextMenuStrip = GetContextMenu(),
                 Visible = true
             };
