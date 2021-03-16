@@ -5,12 +5,9 @@
     <TargetFramework>net5.0-windows</TargetFramework>
     <UseWindowsForms>true</UseWindowsForms>
     <RootNamespace>WinMpcTrayIcon</RootNamespace>
+    <RuntimeIdentifier>win10-x64</RuntimeIdentifier>
     <SelfContained>true</SelfContained>
     <PublishSingleFile>true</PublishSingleFile>
-    <IncludeAllContentForSelfExtract>true</IncludeAllContentForSelfExtract>
-    <RuntimeIdentifier>win10-x64</RuntimeIdentifier>
-    <PublishTrimmed>true</PublishTrimmed>
-    <PublishReadyToRun>false</PublishReadyToRun>
     <PublishReadyToRunShowWarnings>true</PublishReadyToRunShowWarnings>
   </PropertyGroup>
 
@@ -21,6 +18,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Content Include="Icons\**">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <!-- <ItemGroup>
     <EmbeddedResource Include="Icons\ico\pauseplay.ico" />
     <EmbeddedResource Include="Icons\ico\pause.ico" />
     <EmbeddedResource Include="Icons\ico\play.ico" />
@@ -32,7 +35,7 @@
     <EmbeddedResource Include="Icons\png\prev.png" />
     <EmbeddedResource Include="Icons\png\on.png" />
     <EmbeddedResource Include="Icons\png\off.png" />
-  </ItemGroup>
+  </ItemGroup> -->
 
   <ItemGroup>
     <Compile DependentUpon="%(Filename)" SubType="Code" Update="**\obj\**\*.g$(DefaultLanguageSourceExtension)" />
