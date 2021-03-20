@@ -16,6 +16,8 @@ namespace WinMpcTrayIcon.Forms
 
         private SearchBox _searchBox;
 
+        private SearchButton _button;
+
         public QueueForm()
         {
             InitComponents(
@@ -38,22 +40,27 @@ namespace WinMpcTrayIcon.Forms
             Text = title;
             ClientSize = new Size(800, 438);
             Padding = new Padding(2, 2, 2, 2);
-            var button = new Button();
-            AcceptButton = button;
-            CancelButton = button;
             CenterToScreen();
 
             _list = new ListPane(menuItems);
             _searchBox = new SearchBox();
             _searchBox.KeyUp += (sender, e) => Search(sender, e, _searchBox.Text);
+            _button = new SearchButton();
+            _button.KeyDown += (sender, e) => Search(sender, e, _searchBox.Text);
+            _button.Click += (sender, e) => Search(sender, e, _searchBox.Text);
+
+            AcceptButton = _button;
+            CancelButton = _button;
 
             Controls.Add(_list);
             Controls.Add(_searchBox);
+            Controls.Add(_button);
 
             _list.AutoResize();
             _searchBox.AutoResize();
             _searchBox.Focus();
             _searchBox.Select();
+            _button.BringToFront();
 
             GetPlaylist();
         }
@@ -94,22 +101,31 @@ namespace WinMpcTrayIcon.Forms
 
         private void Search(object sender, KeyEventArgs e, string query)
         {
-            if (e.KeyCode == Keys.Enter)
-            {
-                e.SuppressKeyPress = true;
-                _mpc.Cmd(Command.search, out string info, query);
-                var results = info.Split("\r\n");
-                UpdateList(results, true);
-                e.Handled = true;
-            }
-
             if (e.KeyCode == Keys.Escape)
             {
                 e.SuppressKeyPress = true;
-                _searchBox.Text = null;
-                GetPlaylist();
+                Clear();
                 e.Handled = true;
             }
+        }
+
+        private void Search(object sender, EventArgs e, string query)
+        {
+            Search(query);
+        }
+
+        private void Search(string query)
+        {
+            _mpc.Cmd(Command.search, out string info, query);
+            var results = info.Split("\r\n");
+            UpdateList(results, true);
+        }
+
+        private void Clear()
+        {
+            _searchBox.Text = null;
+            GetPlaylist();
+            _button.Text = "Search";
         }
 
         private void GetPlaylist()

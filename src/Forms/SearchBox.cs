@@ -14,7 +14,7 @@ namespace WinMpcTrayIcon.Forms
 
         public void AutoResize()
         {
-            Width = Parent.Width - 20;
+            Width = Parent.Width - 80;
         }
     }
 }
