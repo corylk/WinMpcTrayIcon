@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Threading;
 using System.Windows.Forms;
+using WinMpcTrayIcon.Forms;
 using WinMpcTrayIcon.Menu;
 using WinMpcTrayIcon.Mpc;
 
@@ -15,7 +16,7 @@ namespace WinMpcTrayIcon
 
         public AppContext()
         {
-            Application.ApplicationExit += this.ApplicationExitHandler;
+            Application.ApplicationExit += ApplicationExitHandler;
 
             _mpc = new MpcClient();
             _mpc.Cmd(Command.status, out Status status);
@@ -59,20 +60,19 @@ namespace WinMpcTrayIcon
                 // new MenuItem("Outputs", GetOutputs()),
                 new MenuItem("Database", new List<MenuItem>()
                 {
-                    new MenuItem("Search", new EventHandler(Search)),
                     new MenuItem("Update", (sender, e) => MpcCommand(Command.update)),
-                }),
-                new MenuItem("Modes", new List<MenuItem>()
-                {
-                    new MenuItem("Repeat", (sender, e) => MpcCommand(Command.repeat), playModeStatus.Repeat),
-                    new MenuItem("Random", (sender, e) => MpcCommand(Command.random), playModeStatus.Random),
-                    new MenuItem("Single", (sender, e) => MpcCommand(Command.single), playModeStatus.Single),
-                    new MenuItem("Consume", (sender, e) => MpcCommand(Command.consume), playModeStatus.Consume),
                 }),
                 new MenuItem("Playlist", new List<MenuItem>()
                 {
-                    new MenuItem("View", new EventHandler(Playlist)),
+                    new MenuItem("Queue", new EventHandler(Queue)),
                     new MenuItem("Clear", (sender, e) => MpcCommand(Command.clear)),
+                    new MenuItem("Modes", new List<MenuItem>()
+                    {
+                        new MenuItem("Repeat", (sender, e) => MpcCommand(Command.repeat), playModeStatus.Repeat),
+                        new MenuItem("Random", (sender, e) => MpcCommand(Command.random), playModeStatus.Random),
+                        new MenuItem("Single", (sender, e) => MpcCommand(Command.single), playModeStatus.Single),
+                        new MenuItem("Consume", (sender, e) => MpcCommand(Command.consume), playModeStatus.Consume),
+                    }),
                 }),
                 new MenuItem("Stop", (sender, e) => MpcCommand(Command.stop), Command.stop),
                 new MenuItem("Pause", (sender, e) => MpcCommand(Command.pause), Command.pause),
@@ -99,15 +99,9 @@ namespace WinMpcTrayIcon
             RefreshContext(status);
         }
 
-        private void Search(object sender, EventArgs e)
+        private void Queue(object sender, EventArgs e)
         {
-            var form = new SearchForm();
-            form.Show();
-        }
-
-        private void Playlist(object sender, EventArgs e)
-        {
-            var form = new PlaylistForm();
+            var form = new QueueForm();
             form.Show();
         }
 
